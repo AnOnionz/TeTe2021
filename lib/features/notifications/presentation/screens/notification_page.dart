@@ -86,7 +86,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                       style: kStyleBlack17,
                                     ),
                                     const SizedBox(height: 5,),
-                                    Text(DateFormat("hh:mm dd/MM/yyyy").format(DateTime.fromMillisecondsSinceEpoch(e.createdAt*1000)))
+                                    Text(DateFormat("HH:mm dd/MM/yyyy").format(DateTime.fromMillisecondsSinceEpoch(e.createdAt*1000)))
                                   ],
                                 ),
                               ),
