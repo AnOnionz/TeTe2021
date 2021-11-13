@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../features/home/data/datasources/dashboard_local_datasouce.dart';
 import '../../../../features/inventory/presentation/widgets/inventory_builder.dart';
 
-enum InventoryType { start, end }
+enum InventoryType { start, end, sale }
 
 class InventoryPage extends StatelessWidget {
   final DashBoardLocalDataSource local =
@@ -22,7 +22,7 @@ class InventoryPage extends StatelessWidget {
       // },
       child: SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 2,

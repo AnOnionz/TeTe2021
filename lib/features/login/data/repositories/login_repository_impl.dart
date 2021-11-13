@@ -35,20 +35,21 @@ class LoginRepositoryImpl implements LoginRepository {
   @override
   Future<Either<Failure, LoginEntity>> login(
       {required String username, required String password}) async {
-    try {
-      final login = await loginRemoteDataSource.login(
-          username: username, password: password);
-      return Right(login);
-    } on InternetException catch (_) {
-      return Left(InternetFailure());
-    } on UnAuthenticateException catch (_) {
-      return Left(UnAuthenticateFailure());
-    } on ResponseException catch (error) {
-      return Left(ResponseFailure(message: error.message));
-    } on InternalException catch (error) {
-      return Left(InternalFailure(message: error.message));
-    } catch (error) {
-      return Left(ResponseFailure(message: error.toString()));
-    }
+
+      try {
+        final login = await loginRemoteDataSource.login(
+            username: username, password: password);
+        return Right(login);
+      } on InternetException catch (_) {
+        return Left(InternetFailure());
+      } on UnAuthenticateException catch (_) {
+        return Left(UnAuthenticateFailure());
+      } on ResponseException catch (error) {
+        return Left(ResponseFailure(message: error.message));
+      } on InternalException catch (error) {
+        return Left(InternalFailure(message: error.message));
+      } catch (error) {
+        return Left(ResponseFailure(message: error.toString()));
+      }
   }
 }

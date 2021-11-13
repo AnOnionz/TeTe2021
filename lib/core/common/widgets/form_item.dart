@@ -6,6 +6,7 @@ import 'package:tete2021/core/common/textfield.dart';
 class FormItem extends StatelessWidget {
   final String? label;
   final String? hint;
+  final bool? enable;
   final FocusNode? thisFocus;
   final FocusNode? nextFocus;
   final TextInputAction? action;
@@ -14,7 +15,7 @@ class FormItem extends StatelessWidget {
   final Widget? labelRequired;
   final Function(String)? onChanged;
   final TextEditingController controller;
-  const FormItem({Key? key, this.label, this.labelRequired, required this.controller, this.thisFocus, this.nextFocus, this.inputFormatter, this.inputType, this.onChanged, this.action, this.hint}) : super(key: key);
+  const FormItem({Key? key, this.label, this.labelRequired, required this.controller, this.thisFocus, this.nextFocus, this.inputFormatter, this.inputType, this.onChanged, this.action, this.hint, this.enable}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class FormItem extends StatelessWidget {
         SizedBox(
           height: 40,
           child: InputField(
+            enable: enable,
             action: action,
             hint: hint,
             thisFocus: thisFocus,

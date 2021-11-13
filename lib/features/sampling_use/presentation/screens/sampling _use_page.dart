@@ -36,7 +36,7 @@ class _SamplingUsePageState extends State<SamplingUsePage> {
     _samplingUse = local.dataToday.samplingUse;
     if(_samplingUse != null ){
       for (var element in products) {
-        final ProductEntity? p = _samplingUse!.data.firstWhereOrNull((e) => e.index == element.index);
+        final ProductEntity? p = _samplingUse!.data.firstWhereOrNull((e) => e.id == element.id);
         element.controller.text = p != null ? p.value.toString() : "" ;
       }
     }
@@ -53,7 +53,7 @@ class _SamplingUsePageState extends State<SamplingUsePage> {
       },
       child: SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 2,
@@ -99,7 +99,6 @@ class _SamplingUsePageState extends State<SamplingUsePage> {
                       builder: (context, state) {
                         return InkWell(
                           onTap: () async {
-                            print(products.map((e) => e.controller.text));
                             if(products.any((element) => element.controller.text.isEmpty)){
                               displayMessage(message: "Vui lòng nhập đầy đủ các trường bắt buộc");
                               return ;

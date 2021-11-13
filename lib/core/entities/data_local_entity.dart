@@ -15,13 +15,13 @@ class DataLocalEntity extends HiveObject{
 
   Map<String, dynamic> toJson(){
     return {
-      "data": data,
       'isSync': isSync,
+      "data": data,
     };
   }
 
   @override
   String toString() {
-    return 'DataLocalEntity{ data: $data, isSync: $isSync}';
+    return 'DataLocalEntity{ isSync: $isSync,  data: ${data.map((e) => e.value)},}';
   }
 }

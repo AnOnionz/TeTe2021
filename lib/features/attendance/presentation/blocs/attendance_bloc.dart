@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:location/location.dart';
 import 'package:meta/meta.dart';
+import 'package:tete2021/core/common/constants.dart';
 import 'package:tete2021/features/attendance/domain/entities/attendance_info.dart';
 import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
 import 'package:tete2021/features/sync_data/data/datasources/sync_local_data_source.dart';
@@ -39,18 +41,28 @@ class CheckAttendanceBloc extends Bloc<AttendanceEvent, CheckAttendanceState> {
       yield CheckAttendanceLoading();
       if(event.type is CheckOut){
         final dataToday = dashBoardLocalDataSource.dataToday;
-        // if(!dataToday.posm){
-        //   displayError(PosmNullFailure());
-        //   yield CheckAttendanceFailure();
-        //   return;
-        // }
-        // if(!dataToday.inventory){
-        //   displayError(InventoryNullFailure());
-        //   yield CheckAttendanceFailure();
-        //   return;
-        // }
+        if(dataToday.inventoryIn == null){
+          showMessage(message: InventoryInNullFailure().message, type: DialogType.shock);
+          yield CheckAttendanceFailure();
+          return;
+        }
+        if(dataToday.inventoryOut == null){
+          showMessage(message: InventoryOutNullFailure().message, type: DialogType.shock);
+          yield CheckAttendanceFailure();
+          return;
+        }
+        if(dataToday.sale == null){
+          showMessage(message: SaleNullFailure().message, type: DialogType.shock);
+          yield CheckAttendanceFailure();
+          return;
+        }
+        if(dataToday.samplingUse == null){
+          showMessage(message: SamplingUseNullFailure().message, type: DialogType.shock);
+          yield CheckAttendanceFailure();
+          return;
+        }
         if(syncLocal.hasDataNonSync){
-          displayError(HasSyncFailure());
+          showMessage(message: HasSyncFailure().message, type: DialogType.shock);
           yield CheckAttendanceFailure();
           return;
         }
@@ -74,7 +86,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     if (event is Attendance) {
       yield AttendanceLoading();
       final checkInOrOutResponse = await useCaseCheckInOrOut(
-          CheckInOrOutParam(entity: AttendanceEntity(outletCode: AuthenticationBloc.outletEntity!.code, spCode: event.spCode, type: event.type, image: event.img, position: event.position)));
+          CheckInOrOutParam(entity: AttendanceEntity(spCode: event.spCode, type: event.type, image: event.img, position: event.position)));
       yield* _eitherAttendanceState(
           checkInOrOutResponse);
     }
@@ -97,7 +109,7 @@ Stream<AttendanceState> _eitherAttendanceState(
     displayError(failure);
     return AttendanceFailure();
   }, (status) {
-    showMessage(message: 'Chấm công thành công');
+    displaySuccess(message: "Chấm công thành công");
     Modular.to.pop(true);
     return AttendanceSuccess();
   });

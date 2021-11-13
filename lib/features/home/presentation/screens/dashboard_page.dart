@@ -8,21 +8,30 @@ import 'package:tete2021/features/home/presentation/blocs/tab_bloc.dart';
 import 'package:tete2021/features/home/presentation/widgets/bottom_bar.dart';
 import 'package:tete2021/features/login/domain/entities/login_entity.dart';
 import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import 'package:tete2021/features/notifications/presentation/blocs/notify_cubit.dart';
 import 'package:tete2021/features/notifications/presentation/screens/notification_page.dart';
 import 'package:tete2021/features/setting/presentation/screens/setting_page.dart';
 import 'home_page.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
   final TabBloc _tabBloc = Modular.get<TabBloc>();
+  final NotifyCubit _notifyCubit = Modular.get<NotifyCubit>()
+    ..fetchNotify(0);
   final DashboardBloc _dashboardBloc = Modular.get<DashboardBloc>()
     ..add(SaveServerDataToLocalData());
-
-  DashboardPage({Key? key}) : super(key: key);
+  late bool isNewNotify = false;
 
   @override
   Widget build(BuildContext context) {
     final _itemBars = [
-      HomePage(),
+      const HomePage(),
       const NotificationPage(),
       SettingPage()
     ];
@@ -44,16 +53,19 @@ class DashboardPage extends StatelessWidget {
                 image: DecorationImage(
                   image: AssetImage(
                     "assets/images/bg.png",
-                  ), fit: BoxFit.cover,),
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
               child: BlocConsumer<DashboardBloc, DashboardState>(
                 bloc: _dashboardBloc,
                 listener: (context, state) {
-                  if(state is DashboardChangeOutlet){
-                    BlocProvider.of<AuthenticationBloc>(context).add(ChangeOutlet());
+                  if (state is DashboardChangeOutlet) {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(ChangeOutlet());
                   }
                   if (state is DashboardSaving) {
-                      showLoading();
+                    showLoading();
                   }
                   if (state is DashboardSaved) {
                     closeLoading();
@@ -64,8 +76,13 @@ class DashboardPage extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  return BlocBuilder<TabBloc, TabState>(
+                  return BlocConsumer<TabBloc, TabState>(
                     bloc: _tabBloc,
+                    listener: (context, state) {
+                      if (state is TabChanged) {
+                        setState(() {});
+                      }
+                    },
                     builder: (context, state) {
                       if (state is TabChanged) {
                         return _itemBars[state.index];
@@ -81,8 +98,19 @@ class DashboardPage extends StatelessWidget {
                   );
                 },
               ),
-            ), bottomNavigationBar: BottomBar(bloc: _tabBloc)
-        ),
+            ),
+            bottomNavigationBar: BlocListener<NotifyCubit, NotifyState>(
+              bloc: _notifyCubit,
+              listener: (context, state) {
+                if(state is NotifySuccess){
+                  setState(() {});
+                }
+              },
+              child: BottomBar(
+                bloc: _tabBloc,
+                isNewNotify: NotifyCubit.isNewNotify,
+              ),
+            )),
       ),
     );
   }

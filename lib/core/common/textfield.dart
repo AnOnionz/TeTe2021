@@ -46,7 +46,7 @@ class InputField extends StatelessWidget {
         hintStyle: hintText,
         contentPadding: const EdgeInsets.all(15.0),
         filled: true,
-        fillColor: enable! ? Colors.white : Colors.grey,
+        fillColor: enable!= null && enable == false ? const Color(0xFFF0F0F0) : Colors.white,
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFC5C5C5), width: 1),
           borderRadius: BorderRadius.all(Radius.circular(5)),

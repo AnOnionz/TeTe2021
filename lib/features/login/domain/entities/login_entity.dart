@@ -4,26 +4,30 @@ class LoginEntity extends Equatable {
   final int id;
   final String token;
   final String username;
-  final String fullName;
-  final String? email;
-  int? projectId;
+  final String displayName;
+  final String outletName;
+  final String outletNameNoSymbol;
+  final String address;
+  final int limit;
 
-  LoginEntity({required this.id, required this.token, required this.username, required this.fullName, this.email, this.projectId});
+  const LoginEntity({required this.id, required this.limit, required this.token, required this.username, required this.displayName, required this.address, required this.outletName, required this.outletNameNoSymbol});
 
   Map<String, dynamic> toJson() => {
     'id' : id ,
     'access_token' : token,
     'username': username,
-    'full_name': fullName,
-    'email': email,
-    'project_id': projectId,
+    'display_name' : displayName,
+    'outlet_name' : outletName,
+    'outlet_name_no_symbol' : outletNameNoSymbol,
+    'address': address,
+    'limit': limit,
   };
 
   @override
-  List<Object> get props => [id, token, username, fullName];
+  List<Object> get props => [id, token, username, displayName, outletName, outletNameNoSymbol, address, limit];
 
   @override
   String toString() {
-    return 'LoginEntity{id: $id, token: $token, username: $username, fullName: $fullName, email: $email, projectId: $projectId}';
+    return 'LoginEntity{id: $id, token: $token, username: $username, displayName: $displayName, outletName: $outletName, outletNameNoSymbol: $outletNameNoSymbol, address: $address, limit: $limit}';
   }
 }

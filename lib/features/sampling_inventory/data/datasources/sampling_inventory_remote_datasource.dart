@@ -1,7 +1,9 @@
+import 'package:tete2021/core/entities/data_local_entity.dart';
+
 import '../../../../core/api/myDio.dart';
 
 abstract class SamplingInventoryRemoteDataSource {
-  Future<bool> saveSamplingInventory();
+  Future<bool> saveSamplingInventory({required DataLocalEntity samplingInventory});
 }
 class SamplingInventoryRemoteDataSourceImpl implements SamplingInventoryRemoteDataSource{
   final CDio cDio;
@@ -9,8 +11,13 @@ class SamplingInventoryRemoteDataSourceImpl implements SamplingInventoryRemoteDa
   SamplingInventoryRemoteDataSourceImpl({required this.cDio});
 
   @override
-  Future<bool> saveSamplingInventory() async {
-    return true;
+  Future<bool> saveSamplingInventory({required DataLocalEntity samplingInventory}) async {
+    final sampling = samplingInventory.data.map((e) => {"product_id" : e.id, "qty": e.value}).toList();
+    final data = {"type": "SAMPLING", "data": sampling};
+    Response _resp = await cDio.postResponse(path: 'home/oos', data: data);
+    print(_resp);
+    return _resp.data['success'];
+
   }
 
 }

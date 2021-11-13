@@ -20,7 +20,6 @@ class AuthenticationBloc
   final DashBoardLocalDataSource local;
   final FlutterSecureStorage storage;
   static LoginEntity? loginEntity;
-  static OutletEntity? outletEntity;
   AuthenticationBloc({required this.storage, required this.local}) : super(AuthenticationInitial());
 
   @override
@@ -42,19 +41,11 @@ class AuthenticationBloc
     }
     if (event is LoggedIn) {
       yield AuthenticationLoading();
+      await hive.initDB(event.loginEntity);
       loginEntity = event.loginEntity;
       await storage.write(key: user, value: jsonEncode(loginEntity!.toJson()));
       Modular.get<CDio>().setBearerAuth(token: loginEntity!.token);
-      yield AuthenticationUnSelectOutlet();
-    }
-    if (event is SelectOutlet) {
-      await hive.initDB(event.outletEntity);
-      AuthenticationBloc.outletEntity = event.outletEntity;
-      yield AuthenticationSelectedOutlet();
-    }
-    if(event is ChangeOutlet){
-      AuthenticationBloc.outletEntity = null;
-      yield AuthenticationUnSelectOutlet();
+      yield AuthenticationAuthenticated(user: event.loginEntity);
     }
     if (event is LoggedOut) {
       await storage.delete(key: user);

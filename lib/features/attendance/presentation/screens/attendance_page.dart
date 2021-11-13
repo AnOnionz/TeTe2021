@@ -557,15 +557,12 @@ class _AttendancePageState extends State<AttendancePage> {
                                               FocusScope.of(context)
                                                   .requestFocus(FocusNode());
                                               if (id <= 0) {
-                                                showMessage(
-                                                    message:
-                                                        'Yêu cầu chọn loại chấm công.');
+                                                showMessage(message:"Vui lòng chọn loại chấm công", type: DialogType.shock);
+
                                                 return;
                                               }
                                               if (ctlMaNV.text.isEmpty) {
-                                                showMessage(
-                                                    message:
-                                                        'Yêu cầu nhập mã SP.');
+                                                showMessage(message: "Vui lòng nhập mã PG", type: DialogType.shock);
                                                 return;
                                               }
                                               if (listSp.firstWhere(
@@ -574,9 +571,7 @@ class _AttendancePageState extends State<AttendancePage> {
                                                           ctlMaNV.text,
                                                       orElse: () => '') !=
                                                   '') {
-                                                showMessage(
-                                                    message:
-                                                        'PG đã được thêm vào danh sách chấm công.');
+                                                showMessage(message: "PG đã được thêm vào danh sách chấm công", type: DialogType.shock);
                                                 return;
                                               }
 
@@ -646,49 +641,14 @@ class _AttendancePageState extends State<AttendancePage> {
                                 child: InkWell(
                                   onTap: () async {
                                     if (_image == null) {
-                                      await showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (BuildContext context) {
-                                            return CupertinoAlertDialog(
-                                              title:
-                                                  const Text("Hình ảnh trống"),
-                                              content: const Text(
-                                                "Bạn phải chụp ảnh để tiếp tục chấm công",
-                                                style: kStyleBlack17,
-                                              ),
-                                              actions: [
-                                                CupertinoDialogAction(
-                                                    isDefaultAction: true,
-                                                    textStyle: const TextStyle(
-                                                        color: Colors.red),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text("Đóng")),
-                                                CupertinoDialogAction(
-                                                    isDefaultAction: true,
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      getImage();
-                                                    },
-                                                    child: const Text(
-                                                      "Chụp hình",
-                                                    )),
-                                              ],
-                                            );
-                                          });
+                                      showMessage(message:"Vui lòng chụp hình để thực hiện chấm công", type: DialogType.shock);
                                       return;
                                     }
                                     if (location == null) {
-                                      showMessage(
-                                          message:
-                                              "Tọa dộ chưa được xác định");
+                                      showMessage(message: "Tọa dộ chưa được xác định", type: DialogType.shock);
                                     }
                                     if (listSp.isEmpty) {
-                                      showMessage(
-                                          message:
-                                              'Yêu cầu thêm SP để chấm công.');
+                                      showMessage(message: "Vui lòng thêm PG để chấm công", type: DialogType.shock);
                                       return;
                                     }
                                     _attendanceBloc.add(Attendance(

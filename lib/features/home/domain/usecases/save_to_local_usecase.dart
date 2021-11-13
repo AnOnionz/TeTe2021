@@ -16,6 +16,7 @@ class SaveDataToLocalUseCase implements UseCase<bool, NoParams>{
     if (await networkInfo.isConnected) {
       try {
         await repository.saveProductFromServer();
+        await repository.saveDataToday();
         return const Right(true);
       } on InternetException catch (_) {
         return Left(InternetFailure());
@@ -26,6 +27,7 @@ class SaveDataToLocalUseCase implements UseCase<bool, NoParams>{
       } on InternalException catch (error) {
         return Left(InternalFailure(message: error.message));
       } catch (error){
+        print(error.toString());
         return Left(ResponseFailure(message: error.toString()));
       }
     }else{

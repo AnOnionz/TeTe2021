@@ -12,7 +12,7 @@ abstract class DashBoardLocalDataSource {
   DataTodayEntity get dataToday;
   List<ProductEntity> fetchProduct();
   Future<void> deleteDataToday();
-  Future<void> cacheDataToday({bool? checkIn, DataLocalEntity? inventoryIn, DataLocalEntity? inventoryOut, DataLocalEntity? samplingUse, DataLocalEntity? samplingInventory});
+  Future<void> cacheDataToday({bool? checkIn, DataLocalEntity? inventoryIn, DataLocalEntity? inventoryOut, DataLocalEntity? samplingUse, DataLocalEntity? sale, DataLocalEntity? samplingInventory});
   Future<void> cacheProducts({required List<ProductEntity> products});
   // Future<void> cacheGiftsStrongbow({required List<GiftEntity> gifts});
 }
@@ -31,7 +31,7 @@ class DashBoardLocalDataSourceImpl implements DashBoardLocalDataSource {
             MyDateTime.today +
             dataDay);
     DataTodayEntity defaultData =
-        DataTodayEntity(isCheckIn: false, inventoryIn: null, inventoryOut: null, samplingUse: null, samplingInventory: null);
+        DataTodayEntity(isCheckIn: false, inventoryIn: null, inventoryOut: null, samplingUse: null, sale: null, samplingInventory: null,);
     final result = box.get(MyDateTime.today, defaultValue: defaultData);
     if (result == defaultData) {
       box.put(MyDateTime.today, result!);
@@ -41,13 +41,14 @@ class DashBoardLocalDataSourceImpl implements DashBoardLocalDataSource {
 
   @override
   Future<void> cacheDataToday(
-      {bool? checkIn, DataLocalEntity? inventoryIn, DataLocalEntity? inventoryOut, DataLocalEntity? samplingUse, DataLocalEntity? samplingInventory}) async {
+      {bool? checkIn, DataLocalEntity? inventoryIn, DataLocalEntity? inventoryOut, DataLocalEntity? samplingUse, DataLocalEntity? samplingInventory, DataLocalEntity? sale}) async {
     final data = dataToday;
     data.isCheckIn = checkIn ?? data.isCheckIn;
     data.inventoryIn = inventoryIn ?? data.inventoryIn;
     data.inventoryOut = inventoryOut ?? data.inventoryOut;
     data.samplingUse = samplingUse ?? data.samplingUse;
     data.samplingInventory = samplingInventory ?? data.samplingInventory;
+    data.sale = sale ?? data.sale;
     await data.save();
     print('DATA TODAY UPDATED');
     print(data);

@@ -1,9 +1,20 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:tete2021/features/home/domain/usecases/fetch_outlet_usecase.dart';
-import 'package:tete2021/features/home/presentation/blocs/fetch_outlet_cubit.dart';
 import 'package:tete2021/features/inventory/domain/usecases/inventory_out_usecase.dart';
+import 'package:tete2021/features/notifications/data/datasources/noti_remote_data_source.dart';
+import 'package:tete2021/features/notifications/data/repository/noti_repository_impl.dart';
+import 'package:tete2021/features/notifications/domain/repositories/noti_repository.dart';
+import 'package:tete2021/features/notifications/domain/usecase/noti_usecase.dart';
+import 'package:tete2021/features/notifications/presentation/blocs/notify_cubit.dart';
+import 'package:tete2021/features/notifications/presentation/screens/notification_page.dart';
+import 'package:tete2021/features/sales/data/datasources/sale_local_data_source.dart';
+import 'package:tete2021/features/sales/data/datasources/sale_use_remote_datasource.dart';
+import 'package:tete2021/features/sales/data/repositories/sale_repository_impl.dart';
+import 'package:tete2021/features/sales/domain/repositories/sale_repository.dart';
+import 'package:tete2021/features/sales/domain/usecases/sale_usecase.dart';
+import 'package:tete2021/features/sales/presentation/blocs/sale_cubit.dart';
+import 'package:tete2021/features/sales/presentation/screens/sale_use_page.dart';
 import 'package:tete2021/features/sampling_inventory/data/datasources/sampling_inventory_local_data_source.dart';
 import 'package:tete2021/features/sampling_inventory/data/datasources/sampling_inventory_remote_datasource.dart';
 import 'package:tete2021/features/sampling_inventory/data/repositories/sampling_inventory_repository_impl.dart';
@@ -86,16 +97,13 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => InternetConnectionChecker()),
     // home
     Bind.factory((i) => TabBloc()),
-    Bind.factory(
-            (i) => FetchOutletCubit(findOutlet: i.get<FetchOutletUseCase>())),
     Bind.lazySingleton((i) => DashboardBloc(
         saveDataToLocal: i.get<SaveDataToLocalUseCase>(),
         authenticationBloc: i.get<AuthenticationBloc>(),
         local: i.get<DashBoardLocalDataSource>(),
         checkStatus: i.get<UseCaseCheckSP>())),
     Bind.lazySingleton((i) => SaveDataToLocalUseCase(repository: i.get<DashboardRepository>(), networkInfo: i.get<NetworkInfo>())),
-    Bind.lazySingleton(
-            (i) => FetchOutletUseCase(repository: i.get<DashboardRepository>())),
+
     Bind.lazySingleton((i) => DashboardRepositoryImpl(
       attendanceRemoteDataSource: i.get<AttendanceRemoteDataSource>(),
         local: i.get<DashBoardLocalDataSource>(),
@@ -131,7 +139,7 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => InventoryLocalDataSourceImpl()),
     // samplingUse
     Bind.factory((i) => SamplingUseCubit(samplingUse: i.get<SamplingUseUseCase>())),
-    Bind.lazySingleton((i) => SamplingUseUseCase(repository: i.get<SamplingUseRepository>())),
+    Bind.lazySingleton((i) => SamplingUseUseCase(repository: i.get<SamplingUseRepository>(), samplingInventoryRepository: i.get<SamplingInventoryRepository>())),
     Bind.lazySingleton((i) => SamplingUseRepositoryImpl(remote: i.get<SamplingUseRemoteDataSource>(), local: i.get<SamplingUseLocalDataSource>(), dashBoardLocal: i.get<DashBoardLocalDataSource>(), networkInfo: i.get<NetworkInfo>())),
     Bind.lazySingleton((i) => SamplingUseRemoteDataSourceImpl(cDio: i.get<CDio>())),
     Bind.lazySingleton((i) => SamplingUseLocalDataSourceImpl()),
@@ -141,11 +149,24 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => SamplingInventoryRepositoryImpl(remote: i.get<SamplingInventoryRemoteDataSource>(), local: i.get<SamplingInventoryLocalDataSource>(), dashBoardLocal: i.get<DashBoardLocalDataSource>(), networkInfo: i.get<NetworkInfo>())),
     Bind.lazySingleton((i) => SamplingInventoryRemoteDataSourceImpl(cDio: i.get<CDio>())),
     Bind.lazySingleton((i) => SamplingInventoryLocalDataSourceImpl()),
+    // sale
+    Bind.factory((i) => SaleCubit(sale: i.get<SaleUseCase>())),
+    Bind.lazySingleton((i) => SaleUseCase(repository: i.get<SaleRepository>())),
+    Bind.lazySingleton((i) => SaleRepositoryImpl(remote: i.get<SaleRemoteDataSource>(), local: i.get<SaleLocalDataSource>(), dashBoardLocal: i.get<DashBoardLocalDataSource>(), networkInfo: i.get<NetworkInfo>())),
+    Bind.lazySingleton((i) => SaleRemoteDataSourceImpl(cDio: i.get<CDio>())),
+    Bind.lazySingleton((i) => SaleLocalDataSourceImpl()),
     // sync
     Bind.factory((i) => SyncDataBloc(synchronous: i.get<SyncUseCase>())),
     Bind.lazySingleton((i) => SyncUseCase(repository: i.get<SyncRepository>())),
-    Bind.lazySingleton((i) => SyncRepositoryImpl(dashBoardLocalDataSource: i.get<DashBoardLocalDataSource>(), local: i.get<SyncLocalDataSource>(), inventoryRepository: i.get<InventoryRepository>(),networkInfo: i.get<NetworkInfo>())),
-    Bind.lazySingleton((i) => SyncLocalDataSourceImpl(inventory: i.get<InventoryLocalDataSource>(), samplingInventory: i.get<SamplingInventoryLocalDataSource>(), samplingUse: i.get<SamplingUseLocalDataSource>())),
+    Bind.lazySingleton((i) => SyncRepositoryImpl(dashBoardLocalDataSource: i.get<DashBoardLocalDataSource>(), local: i.get<SyncLocalDataSource>(), inventoryRepository: i.get<InventoryRepository>(),networkInfo: i.get<NetworkInfo>(), saleRepository: i.get<SaleRepository>(), samplingUseRepository: i.get<SamplingUseRepository>(), samplingInventoryRepository: i.get<SamplingInventoryRepository>())),
+    Bind.lazySingleton((i) => SyncLocalDataSourceImpl(sale: i.get<SaleLocalDataSource>(), inventory: i.get<InventoryLocalDataSource>(), samplingInventory: i.get<SamplingInventoryLocalDataSource>(), samplingUse: i.get<SamplingUseLocalDataSource>())),
+    // notify
+    Bind.factory((i) => NotifyCubit(notify: i.get<NotifyUseCase>())),
+    Bind.lazySingleton((i) => NotifyUseCase(repository: i.get<NotifyRepository>())),
+    Bind.lazySingleton((i) => NotifyRepositoryImpl(networkInfo: i.get<NetworkInfo>(), remote: i.get<NotifyRemoteDataSource>())),
+    Bind.lazySingleton((i) => NotifyRemoteDataSourceImpl(cDio: i.get<CDio>())),
+
+
   ];
 
   @override
@@ -155,8 +176,10 @@ class HomeModule extends Module {
     ChildRoute('/image', child: (_, args) => const CameraPage()),
     ChildRoute('/inventory_in', child: (_, args) => InventoryPage(type: InventoryType.start,)),
     ChildRoute('/inventory_out', child: (_, args) => InventoryPage(type: InventoryType.end,)),
+    ChildRoute('/sale', child: (_, args) => const SalePage()),
     ChildRoute('/sampling_use', child: (_, args) => const SamplingUsePage(type: SamplingType.use)),
     ChildRoute('/sampling_inventory', child: (_, args) => const SamplingInventoryPage(type: SamplingType.inventory)),
     ChildRoute('/sync', child: (_, args) => const SyncDataPage()),
+
   ];
 }

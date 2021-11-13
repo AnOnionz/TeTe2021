@@ -1,3 +1,5 @@
+import 'package:tete2021/core/platform/package_info.dart';
+
 import '../../../../features/login/data/model/login_model.dart';
 
 import '../../../../core/api/myDio.dart';
@@ -5,7 +7,6 @@ import '../../../../core/api/myDio.dart';
 abstract class LoginRemoteDataSource {
   Future<LoginModel> login({required String username, required String password});
   Future<bool> logout();
-  Future<int?> getProjectId();
 }
 class LoginRemoteDataSourceImpl implements LoginRemoteDataSource{
   final CDio cDio;
@@ -18,6 +19,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource{
       'username': username,
       'password': password,
       'device_id': 'Null',
+      "version": MyPackageInfo.version,
     };
     print("Login Request: $_requestBody");
     Response _resp = await cDio.postResponse(path:'auth/login', data: _requestBody);
@@ -30,14 +32,6 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource{
     return true;
   }
 
-  @override
-  Future<int?> getProjectId() async {
-    Response _resp = await cDio.getResponse(path:'home/projects');
-    if(_resp.data['data'] == []){
-      return null;
-    }
-    return (_resp.data['data'] as List<dynamic>).first['id'];
-  }
 
 
 }

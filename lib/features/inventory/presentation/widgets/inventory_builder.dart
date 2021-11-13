@@ -33,7 +33,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
     inventory = widget.type == InventoryType.start ? local.dataToday.inventoryIn : local.dataToday.inventoryOut;
     if(inventory != null ){
       for (var element in products) {
-        final ProductEntity? p = inventory!.data.firstWhereOrNull((e) => e.index == element.index);
+        final ProductEntity? p = inventory!.data.firstWhereOrNull((e) => e.id == element.id);
         element.controller.text = p != null ? p.value.toString() : "" ;
       }
     }
@@ -74,7 +74,6 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                 builder: (context, state) {
                   return InkWell(
                     onTap: () async {
-                      print(products.map((e) => e.controller.text));
                       if(products.any((element) => element.controller.text.isEmpty)){
                         displayMessage(message: "Vui lòng nhập đầy đủ các trường bắt buộc");
                         return ;

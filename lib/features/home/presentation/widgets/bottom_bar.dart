@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:tete2021/core/common/constants.dart';
 import 'package:tete2021/features/home/presentation/blocs/tab_bloc.dart';
+import 'package:tete2021/features/notifications/presentation/blocs/notify_cubit.dart';
 
-class BottomBar extends StatefulWidget {
+class BottomBar extends StatelessWidget {
   final TabBloc bloc;
+  final bool isNewNotify;
+  const BottomBar({Key? key, required this.bloc,required this.isNewNotify}) : super(key: key);
 
-  const BottomBar({Key? key, required this.bloc}) : super(key: key);
-  @override
-  _BottomBarState createState() => _BottomBarState();
-}
-
-class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, TabState>(
-        bloc: widget.bloc,
+        bloc: bloc,
         builder: (context, state) {
           if (state is TabChanged) {
             return Container(
@@ -24,7 +22,7 @@ class _BottomBarState extends State<BottomBar> {
               child: BottomNavigationBar(
                   currentIndex: state.index,
                   onTap: (index) {
-                    widget.bloc.add(TabPressed(index: index));
+                    bloc.add(TabPressed(index: index));
                   },
                   backgroundColor: Colors.transparent,
                   type: BottomNavigationBarType.fixed,
@@ -39,8 +37,8 @@ class _BottomBarState extends State<BottomBar> {
                     fontWeight: FontWeight.w600,
                   ),
                   unselectedItemColor: Colors.black.withOpacity(0.8),
-                  items: const [
-                    BottomNavigationBarItem(
+                  items: [
+                    const BottomNavigationBarItem(
                         icon: AnimatedOpacity(
                             duration: Duration.zero,
                             opacity: 0.8,
@@ -50,15 +48,31 @@ class _BottomBarState extends State<BottomBar> {
                         ),
                         label: 'Trang chủ'),
                     BottomNavigationBarItem(
-                        icon: AnimatedOpacity(
-                            duration: Duration.zero,
-                            opacity: 0.8,
-                            child: Icon(IconlyBroken.notification)),
+                        icon: Stack(
+                          children: [
+                            const AnimatedOpacity(
+                                duration: Duration.zero,
+                                opacity: 0.8,
+                                child: Icon(IconlyBroken.notification)),
+                            isNewNotify ? Positioned(
+                                right: 0,
+                                top: 1,
+                                child: Container(
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    color: kRedColor,
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                  ),
+                                )) : const SizedBox(),
+                          ],
+                        ),
                         activeIcon: Icon(
                           IconlyBold.notification,
                         ),
                         label: 'Thông báo'),
-                    BottomNavigationBarItem(
+                    const BottomNavigationBarItem(
                       icon: AnimatedOpacity(
                           duration: Duration.zero,
                           opacity: 0.8,

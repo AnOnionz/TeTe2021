@@ -8,7 +8,6 @@ class TopUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final outlet = AuthenticationBloc.outletEntity;
     final account = AuthenticationBloc.loginEntity;
 
     return IntrinsicHeight(
@@ -45,17 +44,17 @@ class TopUi extends StatelessWidget {
               child: IntrinsicWidth(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                      child: Text("VINMART Võ Thị Sáu",
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                      child: Text(account!.outletName,
                           style: kStyleHomeHeader, textAlign: TextAlign.center),
                     ),
                     // Padding(
                     //   padding: const EdgeInsets.all(3.0),
                     //   child: Text("Địa chỉ: ${outlet.addressNumber} ${outlet.streetName} ${outlet.district} ${outlet.province}", style: kStyleBlack15,textAlign: TextAlign.center),
                     // ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                       child: Text("99 Võ Thị Sáu, Thanh Nhàn, Hai Bà Trưng", style: kStyleBlack16, textAlign: TextAlign.center),
                     ),

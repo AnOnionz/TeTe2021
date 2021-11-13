@@ -1,6 +1,7 @@
  import 'dart:async';
 import 'package:bloc/bloc.dart';
  import 'package:dartz/dartz.dart';
+import 'package:tete2021/core/utils/dialogs.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../../../features/sync_data/domain/entities/sync_entity.dart';
@@ -29,7 +30,7 @@ import '../../../../features/sync_data/domain/usecases/sync_usecase.dart';
  }
  Stream<SyncDataState> _eitherSyncToState(Either<Failure, SyncEntity> either,) async*{
    yield either.fold((fail) {
-       //displayError(fail);
+       displayError(fail);
        return SyncDataFailure(failure: fail);
    }, (success) => SyncDataSuccess(syncEntity: success));
  }

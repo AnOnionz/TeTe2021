@@ -16,13 +16,13 @@ Future<void> init() async {
   Hive.registerAdapter<ProductEntity>(ProductEntityAdapter());
   Hive.registerAdapter<DataLocalEntity>(DataLocalEntityAdapter());
 
-
 }
-Future<void> initDB(OutletEntity o) async {
-  await Hive.openBox<DataTodayEntity>(o.code.toString() + MyDateTime.today + dataDay);
-  await Hive.openBox<ProductEntity>(o.code.toString() + productBox);
-  await Hive.openBox<DataLocalEntity>(o.code.toString() + inventoryInBox);
-  await Hive.openBox<DataLocalEntity>(o.code.toString() + inventoryOutBox);
-  await Hive.openBox<DataLocalEntity>(o.code.toString() + samplingUseBox);
-  await Hive.openBox<DataLocalEntity>(o.code.toString() + samplingInventoryBox);
+Future<void> initDB(LoginEntity o) async {
+  await Hive.openBox<DataTodayEntity>(o.id.toString() + MyDateTime.today + dataDay);
+  await Hive.openBox<ProductEntity>(o.id.toString() + productBox);
+  await Hive.openBox<DataLocalEntity>(o.id.toString() + inventoryInBox);
+  await Hive.openBox<DataLocalEntity>(o.id.toString() + inventoryOutBox);
+  await Hive.openBox<DataLocalEntity>(o.id.toString() + samplingUseBox);
+  await Hive.openBox<DataLocalEntity>(o.id.toString() + samplingInventoryBox);
+  await Hive.openBox<DataLocalEntity>(o.id.toString() + saleBox);
 }

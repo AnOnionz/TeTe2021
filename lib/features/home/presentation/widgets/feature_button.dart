@@ -21,10 +21,18 @@ class FeatureButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: InkWell(
           onTap: () async {
-            // if (!local.dataToday.isCheckIn && feature is! AttendanceIn && feature is! AttendanceOut && feature is! Sync ) {
-            //   displayMessage(message: 'Yêu cầu chấm công');
-            //   return;
-            // }
+            if (!local.dataToday.isCheckIn && feature is! Attendance && feature is! Sync ) {
+              displayMessage(message: 'Yêu cầu chấm công');
+              return;
+            }
+            if(local.dataToday.inventoryIn == null && feature is Sale ){
+              displayMessage(message: 'Yêu cầu nhập tồn đầu');
+              return;
+            }
+            if(local.dataToday.inventoryOut == null && feature is Sale ){
+              displayMessage(message: 'Yêu cầu nhập tồn cuối');
+              return;
+            }
             Modular.to.pushNamed(feature.nextRoute);
           },
           borderRadius: BorderRadius.circular(5.0),

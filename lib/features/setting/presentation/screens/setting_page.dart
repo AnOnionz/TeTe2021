@@ -8,9 +8,9 @@ import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.d
 import 'package:tete2021/features/login/presentation/blocs/login_bloc.dart';
 
 class SettingPage extends StatelessWidget {
-  SettingPage({Key? key}) : super(key: key);
-
   final _bloc = Modular.get<LoginBloc>();
+
+  SettingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +46,27 @@ class SettingPage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Chương trình",
+                    style: kStyleBlack16,
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    "Sampling in MT 2021",
+                    style: kStyleBlack16,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              color: const Color(0XFFE8E8E8),
+              height: 1,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     "Tài khoản đang đăng nhập",
@@ -53,7 +74,7 @@ class SettingPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10,),
                   Text(
-                    AuthenticationBloc.loginEntity!.fullName,
+                    AuthenticationBloc.loginEntity!.displayName,
                     style: kStyleBlack16,
                   ),
                 ],

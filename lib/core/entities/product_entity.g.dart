@@ -17,24 +17,27 @@ class ProductEntityAdapter extends TypeAdapter<ProductEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ProductEntity(
-      index: fields[0] as int,
+      id: fields[0] as int,
       name: fields[1] as String,
-      value: fields[3] as int?,
-      image: fields[2] as String,
+      value: fields[4] as int?,
+      image: fields[3] as String,
+      code: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProductEntity obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.index)
+      ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.image)
+      ..write(obj.code)
       ..writeByte(3)
+      ..write(obj.image)
+      ..writeByte(4)
       ..write(obj.value);
   }
 

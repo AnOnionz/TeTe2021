@@ -21,7 +21,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  TextEditingController ctlUserName = !kDebugMode ? TextEditingController() : TextEditingController(text: 'test1');
+  TextEditingController ctlUserName = !kDebugMode ? TextEditingController() : TextEditingController(text: 'megahadong_ca1');
   TextEditingController passWordController = !kDebugMode ? TextEditingController() : TextEditingController(text: '123456');
   bool _obscureText = true;
   final FocusNode _nameFocusNode = FocusNode();

@@ -45,12 +45,20 @@ class CheckInNullFailure extends Failure{
   CheckInNullFailure({message}): super(message);
 }
 // ignore: must_be_immutable
-class PosmNullFailure extends Failure{
-  PosmNullFailure(): super("Yêu cầu nhập POSM trước khi chấm công ra");
+class SaleNullFailure extends Failure{
+  SaleNullFailure(): super("Yêu cầu nhập số bán theo ca");
 }
 // ignore: must_be_immutable
-class InventoryNullFailure extends Failure{
-  InventoryNullFailure(): super("Yêu cầu nhập tồn kho trước khi chấm công ra");
+class SamplingUseNullFailure extends Failure{
+  SamplingUseNullFailure(): super("Yêu cầu nhập sampling sử dụng");
+}
+// ignore: must_be_immutable
+class InventoryInNullFailure extends Failure{
+  InventoryInNullFailure(): super("Yêu cầu nhập tồn kho đầu");
+}
+// ignore: must_be_immutable
+class InventoryOutNullFailure extends Failure{
+  InventoryOutNullFailure(): super("Yêu cầu nhập tồn kho cuối");
 }
 // ignore: must_be_immutable
 class FailureAndCachedToLocal extends Failure{

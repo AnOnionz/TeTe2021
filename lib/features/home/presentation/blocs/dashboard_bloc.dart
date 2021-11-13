@@ -33,11 +33,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
-    if(event is CheckOutlet){
-      if(AuthenticationBloc.outletEntity == null){
-        Modular.to.navigate('/select');
-      }
-    }
+
     if (event is SaveServerDataToLocalData) {
       yield DashboardSaving();
       final result = await saveDataToLocal(NoParams());
@@ -45,9 +41,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         return DashboardFailure(failure: failure);
       }, (r) {
         return DashboardSaved();});
-    }
-    if(state is OtherOutlet){
-      yield DashboardChangeOutlet();
     }
   }
 }

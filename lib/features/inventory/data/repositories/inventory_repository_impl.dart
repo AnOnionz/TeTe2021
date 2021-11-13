@@ -15,19 +15,25 @@ class InventoryRepositoryImpl implements InventoryRepository {
   final InventoryLocalDataSource local;
   final NetworkInfo networkInfo;
 
-  InventoryRepositoryImpl(
-      {required this.remote, required this.local, required  this.dashBoardLocal, required this.networkInfo,});
+  InventoryRepositoryImpl({
+    required this.remote,
+    required this.local,
+    required this.dashBoardLocal,
+    required this.networkInfo,
+  });
 
   @override
-  Future<Either<Failure, bool>> saveInventoryIn({required DataLocalEntity inventory}) async {
+  Future<Either<Failure, bool>> saveInventoryIn(
+      {required DataLocalEntity inventory}) async {
+    for (var product in inventory.data) {
+      product.value = int.parse(product.controller.text);
+      print(product.value);
+    }
     if (await networkInfo.isConnected) {
       try {
-        final status = await remote.saveInventory();
-        for (var product in inventory.data) {
-          product.value = int.parse(product.controller.text);
-        }
-        await local.cacheInventoryIn(inventory);
         await dashBoardLocal.cacheDataToday(inventoryIn: inventory);
+        final status =
+            await remote.saveInventory(type: "BEGIN", inventory: inventory);
         return Right(status);
       } on UnAuthenticateException catch (_) {
         await local.cacheInventoryOut(inventory);
@@ -35,30 +41,33 @@ class InventoryRepositoryImpl implements InventoryRepository {
       } on ResponseException catch (error) {
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
+        await local.cacheInventoryIn(inventory);
         return Left(InternalFailure(message: error.message));
       } on InternetException catch (_) {
         await local.cacheInventoryIn(inventory);
         return Left(InternetFailure());
-      }catch (error){
+      } catch (error) {
         return Left(ResponseFailure(message: error.toString()));
       }
-    }
-    else {
+    } else {
+      await dashBoardLocal.cacheDataToday(inventoryOut: inventory);
       await local.cacheInventoryIn(inventory);
       return Left(FailureAndCachedToLocal("Lưu vào đồng bộ"));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> saveInventoryOut({required DataLocalEntity inventory}) async {
+  Future<Either<Failure, bool>> saveInventoryOut(
+      {required DataLocalEntity inventory}) async {
+    for (var product in inventory.data) {
+      product.value = int.parse(product.controller.text);
+      print(product.value);
+    }
     if (await networkInfo.isConnected) {
       try {
-        final status = await remote.saveInventory();
-        for (var product in inventory.data) {
-          product.value = int.parse(product.controller.text);
-        }
-        await local.cacheInventoryOut(inventory);
         await dashBoardLocal.cacheDataToday(inventoryOut: inventory);
+        final status =
+            await remote.saveInventory(type: "END", inventory: inventory);
         return Right(status);
       } on UnAuthenticateException catch (_) {
         await local.cacheInventoryOut(inventory);
@@ -66,15 +75,16 @@ class InventoryRepositoryImpl implements InventoryRepository {
       } on ResponseException catch (error) {
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
+        await local.cacheInventoryOut(inventory);
         return Left(InternalFailure(message: error.message));
       } on InternetException catch (_) {
         await local.cacheInventoryOut(inventory);
         return Left(InternetFailure());
-      } catch (error){
+      } catch (error) {
         return Left(ResponseFailure(message: error.toString()));
       }
-    }
-    else {
+    } else {
+      await dashBoardLocal.cacheDataToday(inventoryOut: inventory);
       await local.cacheInventoryOut(inventory);
       return Left(FailureAndCachedToLocal("Lưu vào đồng bộ"));
     }
@@ -84,13 +94,13 @@ class InventoryRepositoryImpl implements InventoryRepository {
   Future<Either<Failure, bool>> syncInventoryIn() async {
     final dataSync = local.fetchInventoryIn();
     if (dataSync.isNotEmpty) {
-      final nonSync = dataSync.where((element) => element.isSync == false)
-          .toList();
+      final nonSync =
+          dataSync.where((element) => element.isSync == false).toList();
       if (nonSync.isEmpty) {
         return const Right(false);
       } else {
         for (DataLocalEntity inv in nonSync) {
-          await remote.saveInventory();
+          await remote.saveInventory(type: "BEGIN", inventory: inv);
           inv.isSync = true;
           await inv.save();
         }
@@ -104,13 +114,13 @@ class InventoryRepositoryImpl implements InventoryRepository {
   Future<Either<Failure, bool>> syncInventoryOut() async {
     final dataSync = local.fetchInventoryOut();
     if (dataSync.isNotEmpty) {
-      final nonSync = dataSync.where((element) => element.isSync == false)
-          .toList();
+      final nonSync =
+          dataSync.where((element) => element.isSync == false).toList();
       if (nonSync.isEmpty) {
         return const Right(false);
       } else {
         for (DataLocalEntity inv in nonSync) {
-          await remote.saveInventory();
+          await remote.saveInventory(type: "END", inventory: inv);
           inv.isSync = true;
           await inv.save();
         }

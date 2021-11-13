@@ -1,4 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:tete2021/features/sales/domain/repositories/sale_repository.dart';
+import 'package:tete2021/features/sampling_inventory/domain/repositories/sampling_inventory_repository.dart';
+import 'package:tete2021/features/sampling_use/domain/repositories/sampling_use_repository.dart';
 import '../../../../core/error/Exception.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/platform/network_info.dart';
@@ -14,18 +17,23 @@ import '../../../../features/sync_data/domain/repositories/sync_repository.dart'
    final DashBoardLocalDataSource dashBoardLocalDataSource;
    final SyncLocalDataSource local;
    final InventoryRepository inventoryRepository;
+  final SamplingInventoryRepository samplingInventoryRepository;
+  final SamplingUseRepository samplingUseRepository;
+  final SaleRepository saleRepository;
 
 
-
-   SyncRepositoryImpl({required this.inventoryRepository, required this.networkInfo,required this.local,required this.dashBoardLocalDataSource});
+   SyncRepositoryImpl({required this.inventoryRepository, required this.networkInfo,required this.local,required this.dashBoardLocalDataSource, required this.samplingInventoryRepository,required this.samplingUseRepository,required this.saleRepository, });
 
 
    @override
    Future<Either<Failure, SyncEntity>> synchronous() async {
      if (await networkInfo.isConnected) {
        try {
+         await samplingInventoryRepository.syncSamplingInventory();
          await inventoryRepository.syncInventoryIn();
+         await samplingUseRepository.syncSamplingUse();
          await inventoryRepository.syncInventoryOut();
+         await saleRepository.syncSale();
          final sync = local.getSync();
          return Right(sync);
        } on UnAuthenticateException catch (_) {

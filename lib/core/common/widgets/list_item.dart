@@ -30,13 +30,13 @@ class ListItem extends StatelessWidget {
         children: <Widget>[
           CachedNetworkImage(
             imageUrl: product.image,
+            fit: BoxFit.cover,
             imageBuilder: (context, imageProvider) => Container(
               height: 100,
               width: 60,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: imageProvider,
-                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -75,11 +75,6 @@ class ListItem extends StatelessWidget {
                     inputType: TextInputType.number,
                     thisFocus: product.focus,
                     nextFocus: nextFocus,
-                    onChanged: (p0) {
-                      if (p0.isNotEmpty && int.parse(p0) == 0) {
-                        product.controller.clear();
-                      }
-                    },
                     inputFormatter: <TextInputFormatter>[
                       LengthLimitingTextInputFormatter(5),
                       FilteringTextInputFormatter.digitsOnly,
@@ -92,7 +87,7 @@ class ListItem extends StatelessWidget {
                             ? "Tồn cuối trên kệ"
                             : type == SamplingType.use
                                 ? "Sampling sử dụng"
-                                : type == SamplingType.inventory ? "Tồn sampling hiện tại" : "",
+                                : type == SamplingType.inventory ? "Nhập" : type == InventoryType.start ? "Số bán theo ca" : "",
                   ),
                 ),
               ),

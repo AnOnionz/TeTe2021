@@ -15,18 +15,17 @@ class SamplingUseRepositoryImpl implements SamplingUseRepository {
   final NetworkInfo networkInfo;
 
   SamplingUseRepositoryImpl(
-      {required this.remote, required this.local, required  this.dashBoardLocal, required this.networkInfo,});
+      {required this.remote, required this.local, required  this.dashBoardLocal, required this.networkInfo});
 
   @override
   Future<Either<Failure, bool>> saveSamplingUse({required DataLocalEntity samplingUse}) async {
+    for (var product in samplingUse.data) {
+      product.value = int.parse(product.controller.text);
+    }
     if (await networkInfo.isConnected) {
       try {
-        final status = await remote.saveSamplingUse();
-        for (var product in samplingUse.data) {
-          product.value = int.parse(product.controller.text);
-        }
-        local.cacheSamplingUse(samplingUse);
-        dashBoardLocal.cacheDataToday(samplingUse: samplingUse);
+        await dashBoardLocal.cacheDataToday(samplingUse: samplingUse);
+        final status = await remote.saveSamplingUse(samplingUse: samplingUse);
         return Right(status);
       } on UnAuthenticateException catch (_) {
         await local.cacheSamplingUse(samplingUse);
@@ -34,6 +33,7 @@ class SamplingUseRepositoryImpl implements SamplingUseRepository {
       } on ResponseException catch (error) {
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
+        await local.cacheSamplingUse(samplingUse);
         return Left(InternalFailure(message: error.message));
       } on InternetException catch (_) {
         await local.cacheSamplingUse(samplingUse);
@@ -43,6 +43,7 @@ class SamplingUseRepositoryImpl implements SamplingUseRepository {
       }
     }
     else {
+      await dashBoardLocal.cacheDataToday(samplingUse: samplingUse);
       await local.cacheSamplingUse(samplingUse);
       return Left(FailureAndCachedToLocal("Lưu vào đồng bộ"));
     }
@@ -58,7 +59,7 @@ class SamplingUseRepositoryImpl implements SamplingUseRepository {
         return const Right(false);
       } else {
         for (DataLocalEntity sampling in nonSync) {
-          await remote.saveSamplingUse();
+          await remote.saveSamplingUse(samplingUse: sampling);
           sampling.isSync = true;
           await sampling.save();
         }

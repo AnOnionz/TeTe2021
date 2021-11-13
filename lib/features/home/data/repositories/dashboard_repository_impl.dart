@@ -21,52 +21,17 @@ class DashboardRepositoryImpl implements DashboardRepository {
 
   DashboardRepositoryImpl({required this.networkInfo, required this.local, required this.remote, required this.attendanceRemoteDataSource, });
 
-  @override
-  Future<Either<Failure, OutletEntity>> fetchOutlet({required String code}) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final outlet = await remote.findOutlet(code: code);
-        return Right(outlet);
-      } on InternetException catch (_) {
-        return Left(InternetFailure());
-      } on ResponseException catch (error) {
-        return Left(ResponseFailure(message: error.message));
-      } on UnAuthenticateException catch (_) {
-        return Left(UnAuthenticateFailure());
-      } on InternalException catch (error) {
-        return Left(InternalFailure(message: error.message));
-      } catch (error) {
-        return Left(ResponseFailure(message: error.toString()));
-      }
-    } else {
-      return Left(InternetFailure());
-    }
-  }
 
   @override
   Future<void> saveProductFromServer() async {
-   try{
-     //final products = await remote.fetchProduct();
-     final products = [ProductEntity(index :1, name: "A", image: "https://product.hstatic.net/1000115147/product/snack-ca-_cp_724fd3ec01674bd99712f04b1678b03a_master.png"), ProductEntity(index: 2, name: "B", image: "https://product.hstatic.net/1000115147/product/snack-ca-_cp_724fd3ec01674bd99712f04b1678b03a_master.png"), ProductEntity(index :3, name: "C", image: "https://product.hstatic.net/1000115147/product/snack-ca-_cp_724fd3ec01674bd99712f04b1678b03a_master.png")];
-     await local.cacheProducts(products: products);
-   // ignore: empty_catches
-   }catch(e) {
-
-   }
+    final products = await remote.fetchProduct();
+    await local.cacheProducts(products: products);
   }
   @override
-  Future<void> saveAttendanceStatus() async {
-    try {
-      final status = await attendanceRemoteDataSource.checkStatus(outletCode: AuthenticationBloc.outletEntity!.code);
-      if(status is CheckIn){
-        await local.cacheDataToday(checkIn: true);
-      }if(status is CheckOut){
-        await local.cacheDataToday(checkIn: false);
-      }
-    // ignore: empty_catches
-    }catch(e) {
-    }
-
+  Future<void> saveDataToday() async {
+    final dataToday = await remote.fetchDetail();
+    local.cacheDataToday(checkIn: dataToday.isCheckIn, inventoryIn: dataToday.inventoryIn, inventoryOut: dataToday.inventoryOut, samplingUse: dataToday.samplingUse, samplingInventory: dataToday.samplingInventory, sale: dataToday.sale);
+    print(dataToday);
   }
 }
 

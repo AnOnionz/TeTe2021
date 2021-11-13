@@ -5,25 +5,33 @@ class LoginModel extends LoginEntity {
     required int id,
     required String token,
     required String userName,
-    required String fullName,
-    String? email,
-    int? projectId,
+    required String displayName,
+    required String outletName,
+    required String outletNameNoSymbol,
+    required String address,
+    required int limit,
+
   }) : super(
       id: id,
       token: token,
-      fullName: fullName,
+      displayName: displayName,
       username: userName,
-      email: email,
-      projectId: projectId);
+      outletName: outletName,
+      outletNameNoSymbol: outletNameNoSymbol,
+      address: address,
+      limit: limit
+  );
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
       id: json['id'] as int,
       token: json['access_token'],
       userName: json['username'],
-      fullName: json['full_name'],
-      email: json['email'],
-      projectId: json['project_id'],
+      displayName: json['display_name'],
+      outletName: json['outlet_name'],
+      outletNameNoSymbol: json['outlet_name_no_symbol'],
+      address: json['address'],
+      limit: json['limit'],
     );
   }
 }

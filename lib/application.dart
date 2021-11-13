@@ -4,10 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';
 import 'package:wakelock/wakelock.dart';
-
-import 'features/home/presentation/blocs/tab_bloc.dart';
 import 'features/home/presentation/screens/dashboard_page.dart';
-import 'features/home/presentation/screens/select_outlet_page.dart';
 import 'features/login/presentation/blocs/authentication_bloc.dart';
 import 'features/login/presentation/blocs/login_bloc.dart';
 import 'features/login/presentation/screens/login_page.dart';
@@ -20,9 +17,9 @@ class MyApplication extends StatefulWidget {
 }
 
 class _MyApplicationState extends State<MyApplication> {
-  late final AuthenticationBloc _authenticationBloc =
+  final AuthenticationBloc _authenticationBloc =
       Modular.get<AuthenticationBloc>()..add(AppStarted());
-  late final LoginBloc _loginBloc = Modular.get<LoginBloc>();
+  final LoginBloc _loginBloc = Modular.get<LoginBloc>();
   final globalKey = GlobalKey<NavigatorState>();
 
   @override
@@ -52,11 +49,8 @@ class _MyApplicationState extends State<MyApplication> {
             if (state is AuthenticationUnauthenticated) {
               return LoginPage();
             }
-            if (state is AuthenticationSelectedOutlet) {
+            if (state is AuthenticationAuthenticated) {
               return DashboardPage();
-            }
-            if (state is AuthenticationUnSelectOutlet) {
-              return SelectOutletPage();
             }
             return Scaffold(
               body: Container(

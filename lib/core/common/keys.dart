@@ -12,6 +12,7 @@ const String inventoryInBox = "InventoryInBox" + app;
 const String inventoryOutBox = "InventoryOutBox" + app;
 const String samplingUseBox = "SamplingUseBox" + app;
 const String samplingInventoryBox = "SamplingInventoryBox" + app;
+const String saleBox = "SaleBox" + app;
 // const String CURRENT_SET_GIFT = "CurrentSetGift";
 // const String CURRENT_SET_GIFT_STRONGBOW = "CurrentSetGiftStrongbow";
 // const String CUSTOMER_GIFT_BOX = "CustomerGiftBox";

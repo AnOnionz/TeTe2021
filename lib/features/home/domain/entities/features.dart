@@ -17,6 +17,9 @@ class InventoryIn extends Feature {
 class InventoryOut extends Feature {
   InventoryOut() : super (image: Image.asset("assets/images/box.png", height: 40,),label: "Tồn cuối trên kệ", nextRoute: '/inventory_out');
 }
+class Sale extends Feature {
+  Sale() : super (image: Image.asset("assets/images/hand.png", height: 40,),label: "Số bán theo ca", nextRoute: '/sale');
+}
 class SamplingInventory extends Feature {
   SamplingInventory() : super (image: Image.asset("assets/images/box.png", height: 40,),label: "Nhập tồn sampling", nextRoute: '/sampling_inventory');
 }

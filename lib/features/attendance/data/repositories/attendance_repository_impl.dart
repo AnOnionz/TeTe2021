@@ -22,13 +22,11 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
     try {
       final response = await remote.checkInOrOut(
           entity: entity);
-      await Future.delayed(const Duration(milliseconds: 400));
-      final status = await remote.checkStatus(outletCode: AuthenticationBloc.outletEntity!.code);
-      if(status is CheckIn){
-        await dashBoardLocalDataSource.cacheDataToday(checkIn: true);
+      if(entity.type is CheckIn){
+        dashBoardLocalDataSource.cacheDataToday(checkIn: true);
       }
-      if(status is CheckOut){
-        await dashBoardLocalDataSource.cacheDataToday(checkIn: false);
+      if(entity.type is CheckOut){
+        dashBoardLocalDataSource.cacheDataToday(checkIn: false);
       }
       return Right(response);
     } on UnAuthenticateException catch (_) {
@@ -46,6 +44,7 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
 
   @override
   Future<Either<Failure, AttendanceInfo>> checkSP({required AttendanceType type,required String spCode}) async {
+
     try {
       final response = await remote.checkSP(type: type, spCode: spCode);
       return Right(response);
