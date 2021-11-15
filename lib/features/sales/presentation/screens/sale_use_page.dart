@@ -3,6 +3,7 @@ import 'package:collection/src/iterable_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:tete2021/core/platform/package_info.dart';
 import 'package:tete2021/features/inventory/presentation/screens/inventory_page.dart';
 import 'package:tete2021/features/sales/presentation/blocs/sale_cubit.dart';
 import '../../../../core/common/constants.dart';
@@ -68,6 +69,12 @@ class _SalePageState extends State<SalePage> {
                   fontFamily: 'Helvetica-regular',
                   fontSize: 18),
             ),
+            actions: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Center(child: Text(MyPackageInfo.version, style: kStyleBlack14,)),
+              )
+            ],
           ),
           body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +131,7 @@ class _SalePageState extends State<SalePage> {
                                   )
                                 : const Center(
                                     child: Text(
-                                    "Số bán theo ca",
+                                    "Lưu số bán theo ca",
                                     style: kStyleWhite17,
                                   )),
                             padding: EdgeInsets.symmetric(

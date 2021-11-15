@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';
 import 'package:wakelock/wakelock.dart';
+import 'core/common/widgets/custom_loading.dart';
 import 'features/home/presentation/screens/dashboard_page.dart';
 import 'features/login/presentation/blocs/authentication_bloc.dart';
 import 'features/login/presentation/blocs/login_bloc.dart';
@@ -50,7 +51,7 @@ class _MyApplicationState extends State<MyApplication> {
               return LoginPage();
             }
             if (state is AuthenticationAuthenticated) {
-              return DashboardPage();
+              return const DashboardPage();
             }
             return Scaffold(
               body: Container(
@@ -62,11 +63,7 @@ class _MyApplicationState extends State<MyApplication> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  child: const Center(
-                      child: CupertinoActivityIndicator(
-                    radius: 20,
-                    animating: true,
-                  ))),
+                  ),
             );
           },
         ),

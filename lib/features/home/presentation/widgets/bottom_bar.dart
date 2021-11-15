@@ -68,7 +68,7 @@ class BottomBar extends StatelessWidget {
                                 )) : const SizedBox(),
                           ],
                         ),
-                        activeIcon: Icon(
+                        activeIcon: const Icon(
                           IconlyBold.notification,
                         ),
                         label: 'Thông báo'),

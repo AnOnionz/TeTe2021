@@ -25,7 +25,22 @@ class NotifyCubit extends Cubit<NotifyState> {
       if(r.isNotEmpty && type == 0){
         isNewNotify = r.any((element) => element.isNew);
       }
-      print(isNewNotify);
+      return NotifySuccess(notifies: r);
+    }));
+  }
+  void refreshData(int type) async {
+    final execute = await notify(NotifyParams(type: type));
+    emit(execute.fold((l) {
+      displayError(l);
+      return NotifyFailure();
+    }, (r) {
+      if(r.isNotEmpty && type == 1){
+        isNewNotify = false;
+      }
+      if(r.isNotEmpty && type == 0){
+        isNewNotify = r.any((element) => element.isNew);
+      }
+      displaySuccess(message: "dữ liệu đã được làm mới");
       return NotifySuccess(notifies: r);
     }));
   }

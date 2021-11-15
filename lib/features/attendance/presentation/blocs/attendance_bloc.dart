@@ -41,6 +41,11 @@ class CheckAttendanceBloc extends Bloc<AttendanceEvent, CheckAttendanceState> {
       yield CheckAttendanceLoading();
       if(event.type is CheckOut){
         final dataToday = dashBoardLocalDataSource.dataToday;
+        if(dataToday.samplingUse == null){
+          showMessage(message: SamplingUseNullFailure().message, type: DialogType.shock);
+          yield CheckAttendanceFailure();
+          return;
+        }
         if(dataToday.inventoryIn == null){
           showMessage(message: InventoryInNullFailure().message, type: DialogType.shock);
           yield CheckAttendanceFailure();
@@ -53,16 +58,6 @@ class CheckAttendanceBloc extends Bloc<AttendanceEvent, CheckAttendanceState> {
         }
         if(dataToday.sale == null){
           showMessage(message: SaleNullFailure().message, type: DialogType.shock);
-          yield CheckAttendanceFailure();
-          return;
-        }
-        if(dataToday.samplingUse == null){
-          showMessage(message: SamplingUseNullFailure().message, type: DialogType.shock);
-          yield CheckAttendanceFailure();
-          return;
-        }
-        if(syncLocal.hasDataNonSync){
-          showMessage(message: HasSyncFailure().message, type: DialogType.shock);
           yield CheckAttendanceFailure();
           return;
         }

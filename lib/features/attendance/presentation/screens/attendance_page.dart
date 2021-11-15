@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:tete2021/core/common/widgets/form_item.dart';
 import 'package:tete2021/core/common/widgets/separator.dart';
+import 'package:tete2021/core/platform/package_info.dart';
 import 'package:tete2021/core/utils/dialogs.dart';
 import '../../../../core/common/constants.dart';
 import '../../../../features/attendance/domain/entities/attendance_type.dart';
@@ -689,6 +690,13 @@ class _AttendancePageState extends State<AttendancePage> {
                       color: Colors.black,
                       size: 30,
                     ),
+                  ),
+                ),
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(MyPackageInfo.version, style: kStyleBlack14,),
                   ),
                 )
               ],

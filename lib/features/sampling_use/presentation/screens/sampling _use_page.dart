@@ -3,6 +3,7 @@ import 'package:collection/src/iterable_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:tete2021/core/platform/package_info.dart';
 import '../../../../core/common/constants.dart';
 import '../../../../core/common/widgets/list_item.dart';
 import '../../../../core/entities/data_local_entity.dart';
@@ -66,6 +67,12 @@ class _SamplingUsePageState extends State<SamplingUsePage> {
                   fontFamily: 'Helvetica-regular',
                   fontSize: 18),
             ),
+            actions: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Center(child: Text(MyPackageInfo.version, style: kStyleBlack14,)),
+              )
+            ],
           ),
           body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

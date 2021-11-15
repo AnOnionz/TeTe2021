@@ -7,9 +7,9 @@ class FeatureGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List items = <Feature>[Attendance(), SamplingInventory(), InventoryIn(), SamplingUse(), InventoryOut(), Sale(), Sync()];
+    final List items = <Feature>[Attendance(), SamplingInventory(), InventoryIn(), SamplingUse(), InventoryOut(), Sale(), Survey(), Sync()];
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: ListView(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,

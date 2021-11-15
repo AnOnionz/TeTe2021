@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:tete2021/core/common/widgets/custom_loading.dart';
 import 'package:tete2021/core/utils/dialogs.dart';
 import 'package:tete2021/features/home/presentation/blocs/dashboard_bloc.dart';
 import 'package:tete2021/features/home/presentation/blocs/tab_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.d
 import 'package:tete2021/features/notifications/presentation/blocs/notify_cubit.dart';
 import 'package:tete2021/features/notifications/presentation/screens/notification_page.dart';
 import 'package:tete2021/features/setting/presentation/screens/setting_page.dart';
+import 'package:tete2021/features/sync_data/data/datasources/sync_local_data_source.dart';
 import 'home_page.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -35,83 +37,64 @@ class _DashboardPageState extends State<DashboardPage> {
       const NotificationPage(),
       SettingPage()
     ];
-    return WillPopScope(
-      onWillPop: () async {
-        // if (await Modular.get<SyncRepository>()
-        //     .hasDataNonSync) {
-        //   displayError(HasSyncFailure());
-        //   return false;
-        // }
-        Modular.get<AuthenticationBloc>().add(ChangeOutlet());
-        return false;
-      },
-      child: SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/images/bg.png",
-                  ),
-                  fit: BoxFit.cover,
+    return SafeArea(
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  "assets/images/bg.png",
                 ),
-              ),
-              child: BlocConsumer<DashboardBloc, DashboardState>(
-                bloc: _dashboardBloc,
-                listener: (context, state) {
-                  if (state is DashboardChangeOutlet) {
-                    BlocProvider.of<AuthenticationBloc>(context)
-                        .add(ChangeOutlet());
-                  }
-                  if (state is DashboardSaving) {
-                    showLoading();
-                  }
-                  if (state is DashboardSaved) {
-                    closeLoading();
-                  }
-                  if (state is DashboardFailure) {
-                    closeLoading();
-                    displayError(state.failure);
-                  }
-                },
-                builder: (context, state) {
-                  return BlocConsumer<TabBloc, TabState>(
-                    bloc: _tabBloc,
-                    listener: (context, state) {
-                      if (state is TabChanged) {
-                        setState(() {});
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is TabChanged) {
-                        return _itemBars[state.index];
-                      }
-                      return const Scaffold(
-                        body: Center(
-                            child: CupertinoActivityIndicator(
-                              radius: 20,
-                              animating: true,
-                            )),
-                      );
-                    },
-                  );
-                },
+                fit: BoxFit.cover,
               ),
             ),
-            bottomNavigationBar: BlocListener<NotifyCubit, NotifyState>(
-              bloc: _notifyCubit,
+            child: BlocConsumer<DashboardBloc, DashboardState>(
+              bloc: _dashboardBloc,
               listener: (context, state) {
-                if(state is NotifySuccess){
-                  setState(() {});
+                if (state is DashboardSaving) {
+                  showLoading();
+                }
+                if (state is DashboardSaved) {
+                  closeLoading();
+                }
+                if (state is DashboardFailure) {
+                  closeLoading();
+                  displayError(state.failure);
                 }
               },
-              child: BottomBar(
-                bloc: _tabBloc,
-                isNewNotify: NotifyCubit.isNewNotify,
-              ),
-            )),
-      ),
+              builder: (context, state) {
+                return BlocConsumer<TabBloc, TabState>(
+                  bloc: _tabBloc,
+                  listener: (context, state) {
+                    if (state is TabChanged) {
+                      setState(() {});
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is TabChanged) {
+                      return _itemBars[state.index];
+                    }
+                    return const Scaffold(
+                      body: Center(child: CustomLoading(type: 1)),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          bottomNavigationBar: BlocListener<NotifyCubit, NotifyState>(
+            bloc: _notifyCubit,
+            listener: (context, state) {
+              if(state is NotifySuccess){
+                setState(() {});
+              }
+            },
+            child: BottomBar(
+              bloc: _tabBloc,
+              isNewNotify: NotifyCubit.isNewNotify,
+            ),
+          )),
     );
   }
 }

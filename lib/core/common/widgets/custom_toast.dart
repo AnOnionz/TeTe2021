@@ -16,7 +16,7 @@ class CustomToast extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: Container(
         height: 35,
-        margin: const EdgeInsets.only(bottom: 80),
+        margin: const EdgeInsets.only(bottom: 70),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
         decoration: BoxDecoration(
           color: color,

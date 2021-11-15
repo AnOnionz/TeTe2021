@@ -18,7 +18,7 @@ class InventoryOut extends Feature {
   InventoryOut() : super (image: Image.asset("assets/images/box.png", height: 40,),label: "Tồn cuối trên kệ", nextRoute: '/inventory_out');
 }
 class Sale extends Feature {
-  Sale() : super (image: Image.asset("assets/images/hand.png", height: 40,),label: "Số bán theo ca", nextRoute: '/sale');
+  Sale() : super (image: Image.asset("assets/images/tag.png", height: 40,),label: "Số bán theo ca", nextRoute: '/sale');
 }
 class SamplingInventory extends Feature {
   SamplingInventory() : super (image: Image.asset("assets/images/box.png", height: 40,),label: "Nhập tồn sampling", nextRoute: '/sampling_inventory');
@@ -28,6 +28,9 @@ class SamplingUse extends Feature {
 }
 class Sync extends Feature {
   Sync() : super (image: Image.asset("assets/images/cloud.png", height: 40,),label: "Đồng bộ", nextRoute: '/sync');
+}
+class Survey extends Feature {
+  Survey() : super (image: Image.asset("assets/images/google-forms.png", height: 40,),label: "Khảo sát", nextRoute: '/survey');
 }
 
 

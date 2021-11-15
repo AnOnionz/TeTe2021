@@ -87,7 +87,7 @@ class ListItem extends StatelessWidget {
                             ? "Tồn cuối trên kệ"
                             : type == SamplingType.use
                                 ? "Sampling sử dụng"
-                                : type == SamplingType.inventory ? "Nhập" : type == InventoryType.start ? "Số bán theo ca" : "",
+                                : type == SamplingType.inventory ? "Nhập" : type == InventoryType.sale ? "Số bán theo ca" : "",
                   ),
                 ),
               ),

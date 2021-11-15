@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:tete2021/core/common/constants.dart';
 import 'package:tete2021/core/platform/package_info.dart';
+import 'package:tete2021/core/utils/dialogs.dart';
 import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
 import 'package:tete2021/features/login/presentation/blocs/login_bloc.dart';
+import 'package:tete2021/features/sync_data/data/datasources/sync_local_data_source.dart';
 
 class SettingPage extends StatelessWidget {
   final _bloc = Modular.get<LoginBloc>();
@@ -148,6 +150,10 @@ class SettingPage extends StatelessWidget {
                   }
                   return InkWell(
                     onTap: () {
+                        if(Modular.get<SyncLocalDataSource>().hasDataNonSync){
+                          showWarning(message: "Yêu cầu đồng bộ trước khi đăng xuất");
+                          return;
+                        }
                       showDialog(
                         context: context,
                         builder: (context) => CupertinoAlertDialog(

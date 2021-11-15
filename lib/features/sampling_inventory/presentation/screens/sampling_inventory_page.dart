@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:tete2021/core/common/widgets/form_item.dart';
+import 'package:tete2021/core/platform/package_info.dart';
 import 'package:tete2021/features/sampling_inventory/data/datasources/sampling_inventory_local_data_source.dart';
 import '../../../../core/common/constants.dart';
 import '../../../../core/entities/data_local_entity.dart';
@@ -84,6 +85,12 @@ class _SamplingInventoryPageState extends State<SamplingInventoryPage> {
                   fontFamily: 'Helvetica-regular',
                   fontSize: 18),
             ),
+            actions: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Center(child: Text(MyPackageInfo.version, style: kStyleBlack14,)),
+              )
+            ],
           ),
           body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

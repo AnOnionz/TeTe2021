@@ -15,7 +15,7 @@ class _CustomLoadingState extends State<CustomLoading>
   @override
   void initState() {
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 750),
       vsync: this,
     );
     _controller.forward();
@@ -63,18 +63,18 @@ class _CustomLoadingState extends State<CustomLoading>
 
   Widget _buildLoadingTwo() {
     return Stack(alignment: Alignment.center, children: [
-      Image.network(
-        'https://cdn.jsdelivr.net/gh/xdd666t/MyData@master/pic/flutter/blog/20211101162946.png',
+      Image.asset(
+        'assets/images/loader-center.png',
         height: 50,
         width: 50,
       ),
       RotationTransition(
         alignment: Alignment.center,
         turns: _controller,
-        child: Image.network(
-          'https://cdn.jsdelivr.net/gh/xdd666t/MyData@master/pic/flutter/blog/20211101173708.png',
-          height: 80,
-          width: 80,
+        child: Image.asset(
+          'assets/images/loading1.png',
+          height: 75,
+          width: 75,
         ),
       ),
     ]);

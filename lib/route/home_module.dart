@@ -27,6 +27,7 @@ import 'package:tete2021/features/sampling_use/data/repositories/sampling_use_re
 import 'package:tete2021/features/sampling_use/domain/repositories/sampling_use_repository.dart';
 import 'package:tete2021/features/sampling_use/domain/usecases/sampling_use_usecase.dart';
 import 'package:tete2021/features/sampling_use/presentation/blocs/sampling_use_cubit.dart';
+import 'package:tete2021/features/survey/presentation/screens/survey_page.dart';
 import 'package:tete2021/features/sync_data/presentation/screens/sync_data_page.dart';
 import '../../../../core/api/myDio.dart';
 import '../../../../core/platform/camera_page.dart';
@@ -166,7 +167,6 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => NotifyRepositoryImpl(networkInfo: i.get<NetworkInfo>(), remote: i.get<NotifyRemoteDataSource>())),
     Bind.lazySingleton((i) => NotifyRemoteDataSourceImpl(cDio: i.get<CDio>())),
 
-
   ];
 
   @override
@@ -180,6 +180,7 @@ class HomeModule extends Module {
     ChildRoute('/sampling_use', child: (_, args) => const SamplingUsePage(type: SamplingType.use)),
     ChildRoute('/sampling_inventory', child: (_, args) => const SamplingInventoryPage(type: SamplingType.inventory)),
     ChildRoute('/sync', child: (_, args) => const SyncDataPage()),
+    ChildRoute('/survey', child: (_, args) => const SurveyPage()),
 
   ];
 }

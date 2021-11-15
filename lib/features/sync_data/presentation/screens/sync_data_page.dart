@@ -91,6 +91,12 @@ class _SyncDataPageState extends State<SyncDataPage> {
                   fontFamily: 'Helvetica-regular',
                   fontSize: 18),
             ),
+            actions: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Center(child: Text(MyPackageInfo.version, style: kStyleBlack14,)),
+              )
+            ],
           ),
           body: Column(
             children: <Widget>[

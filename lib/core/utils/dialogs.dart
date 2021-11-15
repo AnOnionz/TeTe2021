@@ -141,35 +141,36 @@ void showMessage({
       });
 }
 
-// void showMessage({required String message}){
-//     asuka.showDialog(
-//         barrierDismissible: false,
-//         useRootNavigator: true,
-//       builder: (BuildContext context) {
-//         return ZoomIn(
-//           duration: const Duration(milliseconds: 100),
-//           child: CupertinoAlertDialog(
-//             title: const Text("Thông báo"),
-//             content: Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Text(
-//                 message,
-//                 style: kStyleBlack17,
-//               ),
-//             ),
-//             actions: [
-//               CupertinoDialogAction(
-//                 child: const Text("Đóng"),
-//                 onPressed:() {
-//                   FocusScope.of(context).requestFocus(FocusNode());
-//                   Navigator.pop(context);
-//                 },
-//               ),
-//             ],
-//           ),
-//         );
-//       });
-//   }
+void showWarning({required String message}){
+    asuka.showDialog(
+        barrierDismissible: false,
+        useRootNavigator: true,
+      builder: (BuildContext context) {
+        return ZoomIn(
+          duration: const Duration(milliseconds: 100),
+          child: CupertinoAlertDialog(
+            title: const Text("Thông báo"),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                message,
+                style: kStyleBlack17,
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text("Đóng"),
+                onPressed:() {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      });
+  }
+
 void showLoading() {
   SmartDialog.showLoading(
     isLoadingTemp: false,

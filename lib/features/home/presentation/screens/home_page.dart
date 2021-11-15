@@ -7,7 +7,6 @@ import 'package:tete2021/core/common/constants.dart';
 import 'package:tete2021/features/home/data/datasources/dashboard_local_datasouce.dart';
 import 'package:tete2021/features/home/presentation/widgets/feature_grid.dart';
 import 'package:tete2021/features/home/presentation/widgets/top_ui.dart';
-import 'package:tete2021/features/login/domain/entities/login_entity.dart';
 import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
 import 'package:tete2021/features/sampling_inventory/data/datasources/sampling_inventory_local_data_source.dart';
 
@@ -34,7 +33,6 @@ class _HomePageState extends State<HomePage> {
     void initData(){
       final _samplingInventory = samplingLocal.fetchSamplingInventory().lastOrNull ?? local.dataToday.samplingInventory;
       if(_samplingInventory != null){
-        print(AuthenticationBloc.loginEntity!.limit);
         isShowBox = _samplingInventory.data.any((element) => element.value! < AuthenticationBloc.loginEntity!.limit);
       }
     }

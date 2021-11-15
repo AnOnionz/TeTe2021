@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:tete2021/core/common/constants.dart';
+import 'package:tete2021/core/platform/package_info.dart';
 import '../../../../features/home/data/datasources/dashboard_local_datasouce.dart';
 import '../../../../features/inventory/presentation/widgets/inventory_builder.dart';
 
@@ -35,6 +37,12 @@ class InventoryPage extends StatelessWidget {
                   fontFamily: 'Helvetica-regular',
                   fontSize: 18),
             ),
+            actions: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Center(child: Text(MyPackageInfo.version, style: kStyleBlack14,)),
+              )
+            ],
           ),
           body: InventoryBuilder(type: type,),
         ),
