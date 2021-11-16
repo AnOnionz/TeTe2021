@@ -84,7 +84,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 400),
                       height: 40.0,
-                      width: state is InventoryLoading ? 48.0 : 800,
+                      width: state is InventoryLoading ? 40.0 : 800,
                       child: state is InventoryLoading
                           ? Container(
                         height: 40,
@@ -105,7 +105,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                           horizontal: state is InventoryLoading ? 0 : 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(
-                            state is InventoryLoading ? 48.0 : 5.0),
+                            state is InventoryLoading ? 40.0 : 5.0),
                         color: kRedColor,
                       ),
                     ),

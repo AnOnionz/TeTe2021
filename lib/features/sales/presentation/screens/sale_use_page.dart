@@ -117,7 +117,7 @@ class _SalePageState extends State<SalePage> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 400),
                             height: 40.0,
-                            width: state is SaleLoading ? 48.0 : 800,
+                            width: state is SaleLoading ? 40.0 : 800,
                             child: state is SaleLoading
                                 ? Container(
                                     height: 40,
@@ -138,7 +138,7 @@ class _SalePageState extends State<SalePage> {
                                 horizontal: state is SaleLoading ? 0 : 20),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
-                                  state is SaleLoading ? 48.0 : 5.0),
+                                  state is SaleLoading ? 40.0 : 5.0),
                               color: kRedColor,
                             ),
                           ),

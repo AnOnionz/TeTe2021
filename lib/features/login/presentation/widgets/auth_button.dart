@@ -31,7 +31,7 @@ class AuthButton extends StatelessWidget {
             ) : Center(child: Text(title, style: kStyleWhite17,)),
             padding: EdgeInsets.symmetric(horizontal: state is LoginLoading ? 0 : 20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular( state is LoginLoading ? 48.0 : 5.0),
+              borderRadius: BorderRadius.circular( state is LoginLoading ? 40.0 : 5.0),
               color: kRedColor,
             ),
           ),

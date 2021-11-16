@@ -22,6 +22,7 @@ class SamplingUseCubit extends Cubit<SamplingUseState> {
       return SamplingUseFailure();
     }, (r) {
       displaySuccess(message: "Lưu thành công");
+      Modular.to.pop();
       return SamplingUseSuccess();
     }));
     Modular.get<DashboardBloc>().add(RefreshDashboard());

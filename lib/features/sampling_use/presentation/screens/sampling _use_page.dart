@@ -115,7 +115,7 @@ class _SamplingUsePageState extends State<SamplingUsePage> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 400),
                             height: 40.0,
-                            width: state is SamplingUseLoading ? 48.0 : 800,
+                            width: state is SamplingUseLoading ? 40.0 : 800,
                             child: state is SamplingUseLoading
                                 ? Container(
                                     height: 40,
@@ -136,7 +136,7 @@ class _SamplingUsePageState extends State<SamplingUsePage> {
                                 horizontal: state is SamplingUseLoading ? 0 : 20),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
-                                  state is SamplingUseLoading ? 48.0 : 5.0),
+                                  state is SamplingUseLoading ? 40.0 : 5.0),
                               color: kRedColor,
                             ),
                           ),
