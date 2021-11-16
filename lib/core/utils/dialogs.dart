@@ -20,7 +20,7 @@ extension DialogTypeExtension on DialogType {
     switch (this) {
       case DialogType.box:
         return Image.asset(
-          'assets/images/box.png',
+          'assets/images/box1.png',
           height: 60,
           width: 60,
         );
@@ -103,7 +103,7 @@ void showMessage({
                                       height: 40,
                                         child: const Center(
                                             child: Text(
-                                          "Đóng",
+                                          "Đồng ý",
                                           style: kStyleBlack16,
                                         )),
                                         padding: const EdgeInsets.symmetric(

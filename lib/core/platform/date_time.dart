@@ -2,8 +2,8 @@ import 'package:intl/intl.dart';
 
 
 abstract class MyDateTime{
-  static DateTime get day => DateTime.now();
-  static String get today => DateFormat.yMd().format(DateTime.now()).replaceAll("/", "0");
+  static DateTime day = DateTime.now();
+  static String get today => DateFormat.yMd().format(day).replaceAll("/", "0");
 //  static Future<int> get ntpTime async {
 //    DateTime _day;
 //    try{

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:tete2021/core/platform/date_time.dart';
 import 'package:tete2021/features/attendance/domain/entities/attendance_info.dart';
 import '../../../../core/error/Exception.dart';
 import '../../../../core/error/failure.dart';
@@ -8,7 +9,6 @@ import '../../../../features/attendance/domain/entities/attendance_status.dart';
 import '../../../../features/attendance/domain/entities/attendance_type.dart';
 import '../../../../features/attendance/domain/repositories/attendance_repository.dart';
 import '../../../../features/home/data/datasources/dashboard_local_datasouce.dart';
-import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 
 class AttendanceRepositoryImpl implements AttendanceRepository {
   final AttendanceRemoteDataSource remote;
@@ -18,7 +18,6 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
   Future<Either<Failure, AttendanceStatus>> checkInOrOut(
       {required AttendanceEntity entity}) async {
-
     try {
       final response = await remote.checkInOrOut(
           entity: entity);

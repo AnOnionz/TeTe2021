@@ -39,6 +39,7 @@ class InventoryRepositoryImpl implements InventoryRepository {
         await local.cacheInventoryOut(inventory);
         return Left(UnAuthenticateFailure());
       } on ResponseException catch (error) {
+        await local.cacheInventoryOut(inventory);
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
         await local.cacheInventoryIn(inventory);
@@ -100,9 +101,11 @@ class InventoryRepositoryImpl implements InventoryRepository {
         return const Right(false);
       } else {
         for (DataLocalEntity inv in nonSync) {
-          await remote.saveInventory(type: "BEGIN", inventory: inv);
-          inv.isSync = true;
-          await inv.save();
+          try{
+            await remote.saveInventory(type: "BEGIN", inventory: inv);
+            inv.isSync = true;
+            await inv.save();
+          }catch(_){}
         }
         return const Right(true);
       }
@@ -120,9 +123,11 @@ class InventoryRepositoryImpl implements InventoryRepository {
         return const Right(false);
       } else {
         for (DataLocalEntity inv in nonSync) {
-          await remote.saveInventory(type: "END", inventory: inv);
-          inv.isSync = true;
-          await inv.save();
+         try{
+           await remote.saveInventory(type: "END", inventory: inv);
+           inv.isSync = true;
+           await inv.save();
+         }catch(_){}
         }
         return const Right(true);
       }

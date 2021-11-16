@@ -65,7 +65,6 @@ class _SyncDataPageState extends State<SyncDataPage> {
             ));
       }
     }
-    print(list);
     return list;
   }
   @override
@@ -171,7 +170,7 @@ class _SyncDataPageState extends State<SyncDataPage> {
                         return const SizedBox();
                       }
                       return InkWell(
-                        onTap: local.hasDataNonSync
+                        onTap: state is SyncDataLoading ? null : local.hasDataNonSync
                             ? () async {
                                 _bloc.add(SyncStart());
                               }

@@ -31,6 +31,7 @@ class SamplingUseRepositoryImpl implements SamplingUseRepository {
         await local.cacheSamplingUse(samplingUse);
         return Left(UnAuthenticateFailure());
       } on ResponseException catch (error) {
+        await local.cacheSamplingUse(samplingUse);
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
         await local.cacheSamplingUse(samplingUse);
@@ -59,9 +60,11 @@ class SamplingUseRepositoryImpl implements SamplingUseRepository {
         return const Right(false);
       } else {
         for (DataLocalEntity sampling in nonSync) {
-          await remote.saveSamplingUse(samplingUse: sampling);
-          sampling.isSync = true;
-          await sampling.save();
+         try{
+           await remote.saveSamplingUse(samplingUse: sampling);
+           sampling.isSync = true;
+           await sampling.save();
+         }catch(_){}
         }
         return const Right(true);
       }

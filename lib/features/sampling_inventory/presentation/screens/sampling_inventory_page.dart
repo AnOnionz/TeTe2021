@@ -52,7 +52,7 @@ class _SamplingInventoryPageState extends State<SamplingInventoryPage> {
     products = local.fetchProduct();
     _samplingInventory = samplingLocal.fetchSamplingInventory().lastOrNull ?? local.dataToday.samplingInventory;
     if(_samplingInventory != null){
-      print(_samplingInventory);
+      print(samplingLocal.fetchSamplingInventory().lastOrNull);
       for (var element in products) {
         final ProductEntity? p = _samplingInventory!.data.firstWhereOrNull((e) => e.id == element.id);
         element.controller.text = p != null ? p.value != null ? p.value.toString()  : "0" : "0" ;
@@ -203,22 +203,20 @@ class _SamplingInventoryPageState extends State<SamplingInventoryPage> {
                     child: BlocConsumer<SamplingInventoryCubit, SamplingInventoryState>(
                       bloc: _cubit,
                       listener: (context, state) {
-                        if(state is SamplingInventorySuccess){
-                          initData();
-                          setState(() {
+                        initData();
+                        setState(() {
 
-                          });
-                        }
+                        });
                       },
                       builder: (context, state) {
                         return InkWell(
-                          onTap: () async {
+                          onTap: state is! InventoryLoading ? () async {
                             if(products1.any((element) => element.controller.text.isEmpty)){
                               displayMessage(message: "Vui lòng nhập đầy đủ các trường bắt buộc");
                               return ;
                             }
                             _cubit.saveSamplingInventory(products1);
-                          },
+                          }: null,
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 400),
                             height: 40.0,

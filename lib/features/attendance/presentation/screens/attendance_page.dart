@@ -566,6 +566,10 @@ class _AttendancePageState extends State<AttendancePage> {
                                                 showMessage(message: "Vui lòng nhập mã PG", type: DialogType.shock);
                                                 return;
                                               }
+                                              if(listSp.isNotEmpty){
+                                                showMessage(message: "Đã có PG khác trong danh sách", type: DialogType.shock);
+                                                return;
+                                              }
                                               if (listSp.firstWhere(
                                                       (code) =>
                                                           code.split(' ')[0] ==
@@ -575,7 +579,6 @@ class _AttendancePageState extends State<AttendancePage> {
                                                 showMessage(message: "PG đã được thêm vào danh sách chấm công", type: DialogType.shock);
                                                 return;
                                               }
-
                                               _checkAttendanceBloc.add(
                                                   CheckAttendance(
                                                       type: rdList[id - 1],

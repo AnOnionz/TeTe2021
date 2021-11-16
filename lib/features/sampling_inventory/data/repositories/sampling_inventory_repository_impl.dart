@@ -1,5 +1,7 @@
 import 'package:collection/src/iterable_extensions.dart';
 import 'package:dartz/dartz.dart';
+import 'package:tete2021/core/utils/dialogs.dart';
+import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
 import '../../../../core/entities/data_local_entity.dart';
 import '../../../../core/platform/network_info.dart';
 import '../../../../features/sampling_inventory/data/datasources/sampling_inventory_local_data_source.dart';
@@ -27,17 +29,24 @@ class SamplingInventoryRepositoryImpl implements SamplingInventoryRepository {
       try {
         final status = await remote.saveSamplingInventory(samplingInventory: samplingInventory);
         samplingInventory.isSync = true;
-        local.cacheSamplingInventory(samplingInventory);
+        await local.cacheSamplingInventory(samplingInventory);
+        await dashBoardLocal.cacheDataToday(samplingInventory: samplingInventory);
         return Right(status);
       } on UnAuthenticateException catch (_) {
         await local.cacheSamplingInventory(samplingInventory);
+        await dashBoardLocal.cacheDataToday(samplingInventory: samplingInventory);
         return Left(UnAuthenticateFailure());
       } on ResponseException catch (error) {
+        await local.cacheSamplingInventory(samplingInventory);
+        await dashBoardLocal.cacheDataToday(samplingInventory: samplingInventory);
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
+        await local.cacheSamplingInventory(samplingInventory);
+        await dashBoardLocal.cacheDataToday(samplingInventory: samplingInventory);
         return Left(InternalFailure(message: error.message));
       } on InternetException catch (_) {
         await local.cacheSamplingInventory(samplingInventory);
+        await dashBoardLocal.cacheDataToday(samplingInventory: samplingInventory);
         return Left(InternetFailure());
       }catch (error){
         return Left(ResponseFailure(message: error.toString()));
@@ -45,6 +54,7 @@ class SamplingInventoryRepositoryImpl implements SamplingInventoryRepository {
     }
     else {
       await local.cacheSamplingInventory(samplingInventory);
+      await dashBoardLocal.cacheDataToday(samplingInventory: samplingInventory);
       return Left(FailureAndCachedToLocal("Lưu vào đồng bộ"));
     }
   }
@@ -59,9 +69,11 @@ class SamplingInventoryRepositoryImpl implements SamplingInventoryRepository {
         return const Right(false);
       } else {
         for (DataLocalEntity sampling in nonSync) {
-          await remote.saveSamplingInventory(samplingInventory: sampling);
-          sampling.isSync = true;
-          await sampling.save();
+         try{
+           await remote.saveSamplingInventory(samplingInventory: sampling);
+           sampling.isSync = true;
+           await sampling.save();
+         }catch(_){}
         }
         return const Right(true);
       }
@@ -97,24 +109,35 @@ class SamplingInventoryRepositoryImpl implements SamplingInventoryRepository {
         if(sampling !=null){
           await remote.saveSamplingInventory(samplingInventory: sampling);
           sampling.isSync = true;
-          local.cacheSamplingInventory(sampling);
+          await local.cacheSamplingInventory(sampling);
+          await dashBoardLocal.cacheDataToday(samplingInventory: sampling);
+          if(sampling.data.any((element) => element.value! < AuthenticationBloc.loginEntity!.limit)){
+            showMessage(message: "Tồn sampling đang nhỏ hơn mức quy định. Hãy nhập thêm hàng", type: DialogType.box);
+          }
         }
         return const Right(true);
       } on UnAuthenticateException catch (_) {
         if(sampling!=null){
-          local.cacheSamplingInventory(sampling);
+          await local.cacheSamplingInventory(sampling);
+          await dashBoardLocal.cacheDataToday(samplingInventory: sampling);
         }
         return Left(UnAuthenticateFailure());
       } on ResponseException catch (error) {
+        if(sampling!=null){
+          await local.cacheSamplingInventory(sampling);
+          await dashBoardLocal.cacheDataToday(samplingInventory: sampling);
+        }
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
         if(sampling!=null){
-          local.cacheSamplingInventory(sampling);
+          await local.cacheSamplingInventory(sampling);
+          await dashBoardLocal.cacheDataToday(samplingInventory: sampling);
         }
         return Left(InternalFailure(message: error.message));
       } on InternetException catch (_) {
         if(sampling!=null){
-          local.cacheSamplingInventory(sampling);
+          await local.cacheSamplingInventory(sampling);
+          await dashBoardLocal.cacheDataToday(samplingInventory: sampling);
         }
         return Left(InternetFailure());
       }catch (error){
@@ -122,8 +145,9 @@ class SamplingInventoryRepositoryImpl implements SamplingInventoryRepository {
       }
     }
     else {
-      if(sampling!=null){
-        local.cacheSamplingInventory(sampling);
+      if(sampling != null){
+        await local.cacheSamplingInventory(sampling);
+        await dashBoardLocal.cacheDataToday(samplingInventory: sampling);
       }
       return Left(FailureAndCachedToLocal("Lưu vào đồng bộ"));
     }

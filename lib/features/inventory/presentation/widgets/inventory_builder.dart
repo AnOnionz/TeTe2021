@@ -73,14 +73,14 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                 bloc: _cubit,
                 builder: (context, state) {
                   return InkWell(
-                    onTap: () async {
+                    onTap: state is! InventoryLoading ? () async {
                       if(products.any((element) => element.controller.text.isEmpty)){
                         displayMessage(message: "Vui lòng nhập đầy đủ các trường bắt buộc");
                         return ;
                       }
                       _cubit.updateInventory(widget.type, products);
 
-                    },
+                    } : null,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 400),
                       height: 40.0,

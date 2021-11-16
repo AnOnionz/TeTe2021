@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:meta/meta.dart';
+import 'package:tete2021/features/home/presentation/blocs/dashboard_bloc.dart';
 import '../../../../core/entities/data_local_entity.dart';
 import '../../../../core/entities/product_entity.dart';
 import '../../../../core/utils/dialogs.dart';
@@ -22,6 +24,7 @@ class SamplingInventoryCubit extends Cubit<SamplingInventoryState> {
       displaySuccess(message: "Lưu thành công");
       return SamplingInventorySuccess();
     }));
+    Modular.get<DashboardBloc>().add(RefreshDashboard());
   }
 
 

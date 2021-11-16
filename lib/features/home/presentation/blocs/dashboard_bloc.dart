@@ -33,7 +33,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
-
+    if(event is RefreshDashboard){
+      yield DashboardRefresh();
+    }
     if (event is SaveServerDataToLocalData) {
       yield DashboardSaving();
       final result = await saveDataToLocal(NoParams());

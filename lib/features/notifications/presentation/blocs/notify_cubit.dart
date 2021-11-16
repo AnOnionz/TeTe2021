@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:meta/meta.dart';
 import 'package:tete2021/core/usecases/usecase.dart';
 import 'package:tete2021/core/utils/dialogs.dart';
+import 'package:tete2021/features/home/presentation/blocs/dashboard_bloc.dart';
 import 'package:tete2021/features/notifications/domain/entity/noti_entity.dart';
 import 'package:tete2021/features/notifications/domain/usecase/noti_usecase.dart';
 
@@ -21,6 +23,7 @@ class NotifyCubit extends Cubit<NotifyState> {
     }, (r) {
       if(r.isNotEmpty && type == 1){
         isNewNotify = false;
+        Modular.get<DashboardBloc>().add(RefreshDashboard());
       }
       if(r.isNotEmpty && type == 0){
         isNewNotify = r.any((element) => element.isNew);

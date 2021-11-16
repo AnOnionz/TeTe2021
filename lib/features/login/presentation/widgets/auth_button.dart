@@ -15,7 +15,7 @@ class AuthButton extends StatelessWidget {
       bloc: bloc,
       builder: (context, state) {
         return InkWell(
-          onTap: onPressed,
+          onTap: state is! LoginLoading ? onPressed : null,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
             height: 40.0,

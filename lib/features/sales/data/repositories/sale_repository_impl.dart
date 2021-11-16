@@ -31,8 +31,10 @@ class SaleRepositoryImpl implements SaleRepository {
         await local.cacheSale(sale);
         return Left(UnAuthenticateFailure());
       } on ResponseException catch (error) {
+        await local.cacheSale(sale);
         return Left(ResponseFailure(message: error.message));
       } on InternalException catch (error) {
+        await local.cacheSale(sale);
         return Left(InternalFailure(message: error.message));
       } on InternetException catch (_) {
         await local.cacheSale(sale);
@@ -58,9 +60,11 @@ class SaleRepositoryImpl implements SaleRepository {
         return const Right(false);
       } else {
         for (DataLocalEntity sale in nonSync) {
-          await remote.saveSale(sale: sale);
-          sale.isSync = true;
-          await sale.save();
+         try{
+           await remote.saveSale(sale: sale);
+           sale.isSync = true;
+           await sale.save();
+         }catch(_){}
         }
         return const Right(true);
       }
