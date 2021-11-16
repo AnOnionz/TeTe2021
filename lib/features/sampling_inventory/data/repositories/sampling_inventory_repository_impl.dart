@@ -1,5 +1,6 @@
 import 'package:collection/src/iterable_extensions.dart';
 import 'package:dartz/dartz.dart';
+import 'package:tete2021/core/entities/product_entity.dart';
 import 'package:tete2021/core/utils/dialogs.dart';
 import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
 import '../../../../core/entities/data_local_entity.dart';
@@ -92,17 +93,20 @@ class SamplingInventoryRepositoryImpl implements SamplingInventoryRepository {
       final samplingInv = DataLocalEntity(data: List.from(samplingInventory.data), isSync: false);
       samplingInv.data.map((e) {
         final used = samplingUsed.data.firstWhereOrNull((element) => element.id == e.id);
-        e.value = (e.value! - used!.value!.toInt());
+        if(used!=null){
+          e.value = (e.value! - used.value!.toInt());
+        }
         return e;
       }).toList();
       sampling = samplingInv;
     }
     if(samplingInventory == null){
-      samplingUsed.data.map((e) {
-        e.value = (-e.value!);
+      final samplingInv = DataLocalEntity(data: List.from(samplingUsed.data.map((e) => e.copy())), isSync: false);
+      samplingInv.data.map((e) {
+        e.value = (-e.value!.toInt());
         return e;
       }).toList();
-      sampling = samplingUsed;
+      sampling = samplingInv;
     }
     if (await networkInfo.isConnected) {
       try {

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:tete2021/core/utils/dialogs.dart';
 import '../../../../core/common/constants.dart';
 import '../../../../core/platform/package_info.dart';
 import '../../../../features/login/presentation/blocs/login_bloc.dart';
@@ -204,6 +205,10 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             _nameFocusNode.unfocus();
                             _passFocusNode.unfocus();
+                            if(ctlUserName.text.isEmpty || passWordController.text.isEmpty){
+                              displayWarning(message: "Tài khoản hoặc mật khẩu không được để trống");
+                              return ;
+                            }
                             widget.bloc.add(Login(userName: ctlUserName.text, password: passWordController.text));
                           },
                         ),

@@ -52,7 +52,7 @@ class _SamplingInventoryPageState extends State<SamplingInventoryPage> {
     products = local.fetchProduct();
     _samplingInventory = samplingLocal.fetchSamplingInventory().lastOrNull ?? local.dataToday.samplingInventory;
     if(_samplingInventory != null){
-      print(samplingLocal.fetchSamplingInventory().lastOrNull);
+      print(_samplingInventory);
       for (var element in products) {
         final ProductEntity? p = _samplingInventory!.data.firstWhereOrNull((e) => e.id == element.id);
         element.controller.text = p != null ? p.value != null ? p.value.toString()  : "0" : "0" ;

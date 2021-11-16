@@ -39,7 +39,8 @@ class _SalePageState extends State<SalePage> {
         final ProductEntity? invIn = inventoryIn.data.firstWhereOrNull((e) => e.id == element.id);
         final ProductEntity? invOut = inventoryOut.data.firstWhereOrNull((e) => e.id == element.id);
         if(invIn != null && invOut !=null){
-          element.controller.text = (invIn.value! - invOut.value!).toString();
+          final value = invIn.value! - invOut.value!;
+          element.controller.text = (value < 0 ? 0 : value).toString();
         }
       }
     }
