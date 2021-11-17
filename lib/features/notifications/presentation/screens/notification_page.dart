@@ -25,7 +25,6 @@ class _NotificationPageState extends State<NotificationPage> {
     await Future.delayed(const Duration(milliseconds: 1500));
     _cubit.refreshData(1);
 
-
   }
 
   @override

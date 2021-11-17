@@ -32,7 +32,6 @@ dependencies:
 
   #SERVICE
   wakelock: ^0.5.6
-  lamp2: ^0.0.1
   #cached_network_image: ^3.0.0
   image_picker: ^0.8.0+3
   dio: ^4.0.0

@@ -15,7 +15,7 @@ class AppModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ModuleRoute('/', module: HomeModule(), transition: TransitionType.rightToLeftWithFade, duration: const Duration(seconds: 2)),
+    ModuleRoute('/', module: HomeModule(), transition: TransitionType.rightToLeftWithFade, duration: const Duration(milliseconds: 0)),
   ];
 
 }
