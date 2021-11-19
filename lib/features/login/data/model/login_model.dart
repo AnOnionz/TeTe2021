@@ -10,6 +10,7 @@ class LoginModel extends LoginEntity {
     required String outletNameNoSymbol,
     required String address,
     required int limit,
+    required String surveyLink
 
   }) : super(
       id: id,
@@ -19,7 +20,8 @@ class LoginModel extends LoginEntity {
       outletName: outletName,
       outletNameNoSymbol: outletNameNoSymbol,
       address: address,
-      limit: limit
+      limit: limit,
+      surveyLink: surveyLink
   );
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class LoginModel extends LoginEntity {
       outletNameNoSymbol: json['outlet_name_no_symbol'],
       address: json['address'],
       limit: json['limit'],
+      surveyLink: json['survey_link'],
     );
   }
 }
