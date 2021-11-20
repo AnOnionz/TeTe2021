@@ -36,6 +36,7 @@ class _SamplingUsePageState extends State<SamplingUsePage> {
     products = local.fetchProduct();
     _samplingUse = local.dataToday.samplingUse;
     if(_samplingUse != null ){
+      print(_samplingUse);
       for (var element in products) {
         final ProductEntity? p = _samplingUse!.data.firstWhereOrNull((e) => e.id == element.id);
         element.controller.text = p != null ? p.value.toString() : "" ;

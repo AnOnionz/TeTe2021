@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SurveyPage extends StatefulWidget {
@@ -20,9 +21,9 @@ class _SurveyPageState extends State<SurveyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: WebView(
-        initialUrl: 'https://flutter.dev',
+        initialUrl: AuthenticationBloc.loginEntity!.surveyLink,
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

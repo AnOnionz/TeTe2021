@@ -55,7 +55,7 @@ class SettingPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    "Sampling in MT 2021",
+                    MyPackageInfo.appName,
                     style: kStyleBlack16,
                   ),
                 ],

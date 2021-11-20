@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_better_camera/camera.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lamp2/lamp2.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
@@ -23,8 +21,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   final List<CameraDescription> _cameras = [];
   CameraController? controller;
   String? imagePath;
-  FlashMode? flashMode;
-  late bool _hasFlash;
+  FlashMode flashMode = FlashMode.off;
 
   final _photoViewController = StreamController<File?>.broadcast();
 
@@ -34,11 +31,10 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
       _cameras.addAll(value);
       if (value.isNotEmpty) {
         onNewCameraSelected(value.first).then(
-          (_) => _initializeCompleter.complete(),
+              (_) => _initializeCompleter.complete(),
         );
       }
     });
-    initFlashlight();
     WidgetsBinding.instance!.addObserver(this);
     super.initState();
   }
@@ -65,15 +61,6 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
     }
   }
 
-  initFlashlight() async {
-    bool hasFlash = await Lamp2.hasFlashlight;
-    print("Device has flash ? $hasFlash");
-    setState(() {
-      _hasFlash = hasFlash;
-      flashMode = FlashMode.off;
-    });
-  }
-
   // void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
   //   final offset = Offset(
   //     details.localPosition.dx / constraints.maxWidth,
@@ -88,11 +75,11 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
       await controller!.dispose();
     }
     controller = CameraController(
-      cameraDescription,
-      ResolutionPreset.high,
-      enableAudio: false,
-      autoFocusEnabled: true,
-      flashMode: FlashMode.off
+        cameraDescription,
+        ResolutionPreset.high,
+        enableAudio: false,
+        autoFocusEnabled: true,
+        flashMode: FlashMode.off
     );
 
     // If the controller is updated then update the UI.
@@ -147,24 +134,39 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
 
   /// Toggle Flash
   Future<void> _onFlashButtonPressed() async {
-    if(_hasFlash && flashMode != null) {
-      if (flashMode == FlashMode.off || flashMode == FlashMode.torch) {
-        // Turn on the flash for capture
-        flashMode = FlashMode.alwaysFlash;
-      } else if (flashMode == FlashMode.alwaysFlash) {
-        // Turn on the flash for capture if needed
-        flashMode = FlashMode.autoFlash;
-      } else {
-        // Turn off the flash
-        flashMode = FlashMode.off;
-      }
-      // Apply the new mode
-      await controller!.setFlashMode(flashMode!);
-
-      // Change UI State
-      setState(() {});
+    bool hasFlash = false;
+    if (flashMode == FlashMode.off || flashMode == FlashMode.torch) {
+      // Turn on the flash for capture
+      flashMode = FlashMode.alwaysFlash;
+    } else if (flashMode == FlashMode.alwaysFlash) {
+      // Turn on the flash for capture if needed
+      flashMode = FlashMode.autoFlash;
+    } else {
+      // Turn off the flash
+      flashMode = FlashMode.off;
     }
+    // Apply the new mode
+    await controller!.setFlashMode(flashMode);
+
+    // Change UI State
+    setState(() {});
   }
+  // Future<void> switchFlashMode() async {
+  //   if (controller == null) {
+  //     print('SSSSSSSSSSSSSSSSSSSSSSSS');
+  //     return;
+  //   }
+  //   try {
+  //     final int index =
+  //         controller.value.flashMode.index + 1 >= FlashMode.values.length
+  //             ? 0
+  //             : controller.value.flashMode.index + 1;
+  //     await setFlashMode(FlashMode.values[index]);
+  //   } on CameraException catch (e) {
+  //     _showCameraException(e);
+  //     rethrow;
+  //   }
+  // }
 
   void goBack() {
     Navigator.of(context).pop();
@@ -178,8 +180,8 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
     final cameraDescription = cameraIndex < 0
         ? controller!.description
         : (_cameras.length > cameraIndex + 1
-            ? _cameras[cameraIndex + 1]
-            : _cameras[0]);
+        ? _cameras[cameraIndex + 1]
+        : _cameras[0]);
     onNewCameraSelected(cameraDescription);
   }
 
@@ -187,7 +189,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   Widget _cameraPreviewWidget() {
     if (controller == null || !controller!.value.isInitialized!) {
       return const Center(
-        child: CupertinoActivityIndicator(radius: 10,),
+        child: CircularProgressIndicator(),
       );
     } else {
       return CameraPreview(controller!);
@@ -236,7 +238,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
                         color: Colors.white,
                       ),
                       onPressed: controller != null &&
-                              controller!.value.isInitialized!
+                          controller!.value.isInitialized!
                           ? _onFlashButtonPressed
                           : null,
                     ),
@@ -372,7 +374,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(
-              child: CupertinoActivityIndicator(radius: 10,),
+              child: CircularProgressIndicator(),
             );
           }
           return StreamBuilder<File?>(
@@ -471,7 +473,7 @@ class _ZoomableWidgetState extends State<ZoomableWidget> {
           final RenderBox box = context.findRenderObject() as RenderBox;
           final Offset localPoint = box.globalToLocal(det.globalPosition);
           final Offset scaledPoint =
-              localPoint.scale(1 / box.size.width, 1 / box.size.height);
+          localPoint.scale(1 / box.size.width, 1 / box.size.height);
           // TODO IMPLIMENT
           // widget.onTapUp(scaledPoint);
         },
@@ -491,38 +493,38 @@ class _ZoomableWidgetState extends State<ZoomableWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SliderTheme(
-                  data: SliderTheme.of(context).copyWith(
-                    valueIndicatorTextStyle: const TextStyle(
-                        color: Colors.amber,
-                        letterSpacing: 2.0,
-                        fontSize: 30),
-                    valueIndicatorColor: Colors.blue,
-                    // This is what you are asking for
-                    inactiveTrackColor: Color(0xFF8D8E98),
-                    // Custom Gray Color
-                    activeTrackColor: Colors.white,
-                    thumbColor: Colors.red,
-                    overlayColor: Color(0x29EB1555),
-                    // Custom Thumb overlay Color
-                    thumbShape:
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        valueIndicatorTextStyle: const TextStyle(
+                            color: Colors.amber,
+                            letterSpacing: 2.0,
+                            fontSize: 30),
+                        valueIndicatorColor: Colors.blue,
+                        // This is what you are asking for
+                        inactiveTrackColor: Color(0xFF8D8E98),
+                        // Custom Gray Color
+                        activeTrackColor: Colors.white,
+                        thumbColor: Colors.red,
+                        overlayColor: Color(0x29EB1555),
+                        // Custom Thumb overlay Color
+                        thumbShape:
                         const RoundSliderThumbShape(enabledThumbRadius: 12.0),
-                    overlayShape:
+                        overlayShape:
                         const RoundSliderOverlayShape(overlayRadius: 20.0),
+                      ),
+                      child: Slider(
+                        value: zoom,
+                        onChanged: (double newValue) {
+                          handleZoom(newValue);
+                        },
+                        label: "$zoom",
+                        min: 1,
+                        max: 10,
+                      ),
+                    ),
                   ),
-                  child: Slider(
-                    value: zoom,
-                    onChanged: (double newValue) {
-                      handleZoom(newValue);
-                    },
-                    label: "$zoom",
-                    min: 1,
-                    max: 10,
-                  ),
-                ),
-              ),
                 ],
               ),
             ),

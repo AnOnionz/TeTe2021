@@ -189,6 +189,9 @@ void displayMessage({required String message}) {
 void displaySuccess({required String message}) {
   showToast(message: message, color: const Color(0XFFE7F5DD));
 }
+void displayWarning({required String message}) {
+  showToast(message: message, color: const Color(0XFFF8D8D7));
+}
 
 void displayError(Failure failure) {
   if (failure is UnAuthenticateFailure) {

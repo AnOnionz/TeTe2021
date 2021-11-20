@@ -541,13 +541,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.0"
-  lamp2:
-    dependency: "direct main"
-    description:
-      name: lamp2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   lints:
     dependency: transitive
     description:
