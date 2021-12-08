@@ -1,7 +1,7 @@
  import 'dart:async';
 import 'package:bloc/bloc.dart';
  import 'package:dartz/dartz.dart';
-import 'package:tete2021/core/utils/dialogs.dart';
+import '../../../../core/utils/dialogs.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../../../features/sync_data/domain/entities/sync_entity.dart';

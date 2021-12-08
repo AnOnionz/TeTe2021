@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/features/sales/domain/repositories/sale_repository.dart';
+import '../../../../features/sales/domain/repositories/sale_repository.dart';
 import '../../../../core/entities/data_local_entity.dart';
 import '../../../../features/sampling_use/domain/repositories/sampling_use_repository.dart';
 import '../../../../core/error/failure.dart';

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:path/path.dart';
-import 'package:tete2021/features/attendance/domain/entities/attendance_info.dart';
-import 'package:tete2021/features/attendance/domain/entities/attendance_status.dart';
+import '../../../../features/attendance/domain/entities/attendance_info.dart';
+import '../../../../features/attendance/domain/entities/attendance_status.dart';
 import '../../../../core/api/myDio.dart';
 import '../../../../features/attendance/domain/entities/attendance_entity.dart';
 import '../../../../features/attendance/domain/entities/attendance_type.dart';

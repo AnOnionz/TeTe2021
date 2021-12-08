@@ -1,4 +1,4 @@
-import 'package:tete2021/features/login/domain/entities/login_entity.dart';
+import '../../../../features/login/domain/entities/login_entity.dart';
 
 class LoginModel extends LoginEntity {
   LoginModel({

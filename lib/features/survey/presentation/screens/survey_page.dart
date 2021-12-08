@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SurveyPage extends StatefulWidget {

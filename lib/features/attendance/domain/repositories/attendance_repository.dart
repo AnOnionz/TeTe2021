@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/features/attendance/domain/entities/attendance_info.dart';
+import '../../../../features/attendance/domain/entities/attendance_info.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../features/attendance/domain/entities/attendance_entity.dart';
 import '../../../../features/attendance/domain/entities/attendance_status.dart';

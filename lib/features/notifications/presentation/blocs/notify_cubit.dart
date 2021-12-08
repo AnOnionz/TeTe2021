@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:meta/meta.dart';
-import 'package:tete2021/core/usecases/usecase.dart';
-import 'package:tete2021/core/utils/dialogs.dart';
-import 'package:tete2021/features/home/presentation/blocs/dashboard_bloc.dart';
-import 'package:tete2021/features/notifications/domain/entity/noti_entity.dart';
-import 'package:tete2021/features/notifications/domain/usecase/noti_usecase.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../../../core/utils/dialogs.dart';
+import '../../../../features/home/presentation/blocs/dashboard_bloc.dart';
+import '../../../../features/notifications/domain/entity/noti_entity.dart';
+import '../../../../features/notifications/domain/usecase/noti_usecase.dart';
 
 part 'notify_state.dart';
 

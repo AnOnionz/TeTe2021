@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
-import 'package:tete2021/core/error/Exception.dart';
-import 'package:tete2021/core/error/failure.dart';
-import 'package:tete2021/core/platform/network_info.dart';
-import 'package:tete2021/features/attendance/data/datasources/attendance_remote_datasource.dart';
-import 'package:tete2021/features/attendance/domain/entities/attendance_type.dart';
-import 'package:tete2021/features/home/data/datasources/dashboard_local_datasouce.dart';
-import 'package:tete2021/features/home/data/datasources/dashboard_remote_datasource.dart';
-import 'package:tete2021/features/home/domain/repositories/dashboard_repository.dart';
-import 'package:tete2021/features/login/domain/entities/outlet_entity.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../core/entities/product_entity.dart';
+import '../../../../core/error/Exception.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/platform/network_info.dart';
+import '../../../../features/attendance/data/datasources/attendance_remote_datasource.dart';
+import '../../../../features/attendance/domain/entities/attendance_type.dart';
+import '../../../../features/home/data/datasources/dashboard_local_datasouce.dart';
+import '../../../../features/home/data/datasources/dashboard_remote_datasource.dart';
+import '../../../../features/home/domain/repositories/dashboard_repository.dart';
+import '../../../../features/login/domain/entities/outlet_entity.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 
 
 class DashboardRepositoryImpl implements DashboardRepository {

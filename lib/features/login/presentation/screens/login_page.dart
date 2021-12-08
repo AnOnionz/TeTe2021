@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:tete2021/core/utils/dialogs.dart';
+import '../../../../core/utils/dialogs.dart';
 import '../../../../core/common/constants.dart';
 import '../../../../core/platform/package_info.dart';
 import '../../../../features/login/presentation/blocs/login_bloc.dart';

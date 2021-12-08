@@ -64,7 +64,9 @@ class SamplingUseRepositoryImpl implements SamplingUseRepository {
            await remote.saveSamplingUse(samplingUse: sampling);
            sampling.isSync = true;
            await sampling.save();
-         }catch(_){}
+         }catch(_){
+           rethrow;
+         }
         }
         return const Right(true);
       }

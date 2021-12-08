@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tete2021/features/home/presentation/blocs/dashboard_bloc.dart';
+import '../../../../features/home/presentation/blocs/dashboard_bloc.dart';
 import '../../../../core/api/myDio.dart';
 import '../../../../core/common/keys.dart';
 import '../../../../features/home/data/datasources/dashboard_local_datasouce.dart';

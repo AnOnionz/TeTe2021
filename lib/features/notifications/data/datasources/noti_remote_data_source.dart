@@ -1,5 +1,5 @@
-import 'package:tete2021/core/api/myDio.dart';
-import 'package:tete2021/features/notifications/domain/entity/noti_entity.dart';
+import '../../../../core/api/myDio.dart';
+import '../../../../features/notifications/domain/entity/noti_entity.dart';
 
 abstract class NotifyRemoteDataSource {
   Future<List<NotifyEntity>> fetchNotify();

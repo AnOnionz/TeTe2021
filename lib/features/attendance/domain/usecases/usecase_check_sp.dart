@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/core/error/failure.dart';
-import 'package:tete2021/core/usecases/usecase.dart';
-import 'package:tete2021/features/attendance/domain/entities/attendance_info.dart';
-import 'package:tete2021/features/attendance/domain/entities/attendance_type.dart';
-import 'package:tete2021/features/attendance/domain/repositories/attendance_repository.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../../../features/attendance/domain/entities/attendance_info.dart';
+import '../../../../features/attendance/domain/entities/attendance_type.dart';
+import '../../../../features/attendance/domain/repositories/attendance_repository.dart';
 
 
 class UseCaseCheckSP extends UseCase<AttendanceInfo, CheckSPParams> {

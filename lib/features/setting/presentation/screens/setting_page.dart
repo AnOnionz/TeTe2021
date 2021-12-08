@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/platform/package_info.dart';
-import 'package:tete2021/core/utils/dialogs.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
-import 'package:tete2021/features/login/presentation/blocs/login_bloc.dart';
-import 'package:tete2021/features/sync_data/data/datasources/sync_local_data_source.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/platform/package_info.dart';
+import '../../../../core/utils/dialogs.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../features/login/presentation/blocs/login_bloc.dart';
+import '../../../../features/sync_data/data/datasources/sync_local_data_source.dart';
 
 class SettingPage extends StatelessWidget {
   final _bloc = Modular.get<LoginBloc>();

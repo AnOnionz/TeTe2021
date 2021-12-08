@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tete2021/core/entities/data_local_entity.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
-import 'package:tete2021/core/utils/dialogs.dart';
-import 'package:tete2021/features/sales/domain/usecases/sale_usecase.dart';
+import '../../../../core/entities/data_local_entity.dart';
+import '../../../../core/entities/product_entity.dart';
+import '../../../../core/utils/dialogs.dart';
+import '../../../../features/sales/domain/usecases/sale_usecase.dart';
 
 part 'sale_state.dart';
 

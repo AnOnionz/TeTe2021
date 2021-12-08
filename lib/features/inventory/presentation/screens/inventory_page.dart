@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/platform/package_info.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/platform/package_info.dart';
 import '../../../../features/home/data/datasources/dashboard_local_datasouce.dart';
 import '../../../../features/inventory/presentation/widgets/inventory_builder.dart';
 

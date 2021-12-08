@@ -1,4 +1,4 @@
-import 'package:tete2021/core/platform/package_info.dart';
+import '../../../../core/platform/package_info.dart';
 
 import '../../../../features/login/data/model/login_model.dart';
 

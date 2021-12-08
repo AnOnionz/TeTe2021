@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/core/error/Exception.dart';
-import 'package:tete2021/core/error/failure.dart';
-import 'package:tete2021/core/platform/network_info.dart';
-import 'package:tete2021/features/notifications/data/datasources/noti_remote_data_source.dart';
-import 'package:tete2021/features/notifications/domain/entity/noti_entity.dart';
-import 'package:tete2021/features/notifications/domain/repositories/noti_repository.dart';
+import '../../../../core/error/Exception.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/platform/network_info.dart';
+import '../../../../features/notifications/data/datasources/noti_remote_data_source.dart';
+import '../../../../features/notifications/domain/entity/noti_entity.dart';
+import '../../../../features/notifications/domain/repositories/noti_repository.dart';
 
 class NotifyRepositoryImpl implements NotifyRepository {
   final NetworkInfo networkInfo;

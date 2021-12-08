@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:tete2021/core/common/widgets/separator.dart';
+import '../../../../core/common/widgets/separator.dart';
 import '../../../../core/common/constants.dart';
 import '../../../../core/platform/package_info.dart';
 import '../../../../core/utils/dialogs.dart';

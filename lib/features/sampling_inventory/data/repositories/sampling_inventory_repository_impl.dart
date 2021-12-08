@@ -1,8 +1,8 @@
 import 'package:collection/src/iterable_extensions.dart';
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
-import 'package:tete2021/core/utils/dialogs.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../core/entities/product_entity.dart';
+import '../../../../core/utils/dialogs.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 import '../../../../core/entities/data_local_entity.dart';
 import '../../../../core/platform/network_info.dart';
 import '../../../../features/sampling_inventory/data/datasources/sampling_inventory_local_data_source.dart';
@@ -74,7 +74,9 @@ class SamplingInventoryRepositoryImpl implements SamplingInventoryRepository {
            await remote.saveSamplingInventory(samplingInventory: sampling);
            sampling.isSync = true;
            await sampling.save();
-         }catch(_){}
+         }catch(_){
+           rethrow;
+         }
         }
         return const Right(true);
       }

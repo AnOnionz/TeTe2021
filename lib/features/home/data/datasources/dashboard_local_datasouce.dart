@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
-import 'package:tete2021/core/common/keys.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
-import 'package:tete2021/core/entities/data_local_entity.dart';
-import 'package:tete2021/core/platform/date_time.dart';
-import 'package:tete2021/features/home/domain/entities/today_data_entity.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../core/common/keys.dart';
+import '../../../../core/entities/product_entity.dart';
+import '../../../../core/entities/data_local_entity.dart';
+import '../../../../core/platform/date_time.dart';
+import '../../../../features/home/domain/entities/today_data_entity.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 
 abstract class DashBoardLocalDataSource {
   DataTodayEntity get dataToday;

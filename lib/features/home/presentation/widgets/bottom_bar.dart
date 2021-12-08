@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/features/home/presentation/blocs/tab_bloc.dart';
-import 'package:tete2021/features/notifications/presentation/blocs/notify_cubit.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../features/home/presentation/blocs/tab_bloc.dart';
+import '../../../../features/notifications/presentation/blocs/notify_cubit.dart';
 
 class BottomBar extends StatelessWidget {
   final TabBloc bloc;

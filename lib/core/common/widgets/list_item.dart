@@ -5,11 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/common/widgets/separator.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
-import 'package:tete2021/features/inventory/presentation/screens/inventory_page.dart';
-import 'package:tete2021/features/sampling_use/presentation/screens/sampling%20_use_page.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/common/widgets/separator.dart';
+import '../../../../core/entities/product_entity.dart';
+import '../../../../features/inventory/presentation/screens/inventory_page.dart';
+import '../../../../features/sampling_use/presentation/screens/sampling%20_use_page.dart';
 
 import 'form_item.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tete2021/core/common/constants.dart';
+import '../../../../core/common/constants.dart';
 
 class CustomToast extends StatelessWidget {
   final String msg;
