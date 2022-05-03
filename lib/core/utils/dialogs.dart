@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/common/widgets/custom_loading.dart';
-import 'package:tete2021/core/utils/toats.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/common/widgets/custom_loading.dart';
+import '../../../../core/utils/toats.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 import '../../core/error/failure.dart';
 
 enum DialogType { box, shock }

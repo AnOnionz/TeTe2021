@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/features/notifications/domain/entity/noti_entity.dart';
-import 'package:tete2021/features/notifications/domain/repositories/noti_repository.dart';
+import '../../../../features/notifications/domain/entity/noti_entity.dart';
+import '../../../../features/notifications/domain/repositories/noti_repository.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../../../features/login/domain/entities/login_entity.dart';

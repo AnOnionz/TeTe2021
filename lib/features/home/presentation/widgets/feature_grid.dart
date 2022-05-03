@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tete2021/features/home/domain/entities/features.dart';
+import '../../../../features/home/domain/entities/features.dart';
 
 import 'feature_button.dart';
 class FeatureGrid extends StatelessWidget {

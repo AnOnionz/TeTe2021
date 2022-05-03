@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:tete2021/route/app_module.dart';
+import '../../../../route/app_module.dart';
 import '../../../../core/storage/hive_db.dart' as hive;
 import 'package:asuka/asuka.dart' as asuka;
-import 'package:tete2021/simple_bloc_observer.dart';
+import '../../../../simple_bloc_observer.dart';
 import 'package:wakelock/wakelock.dart';
 import 'application.dart';
 

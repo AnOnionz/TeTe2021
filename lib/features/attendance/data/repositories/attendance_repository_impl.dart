@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/core/platform/date_time.dart';
-import 'package:tete2021/features/attendance/domain/entities/attendance_info.dart';
+import '../../../../core/platform/date_time.dart';
+import '../../../../features/attendance/domain/entities/attendance_info.dart';
 import '../../../../core/error/Exception.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../features/attendance/data/datasources/attendance_remote_datasource.dart';

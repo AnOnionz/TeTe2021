@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:tete2021/core/api/myDio.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
-import 'package:tete2021/features/home/domain/entities/today_data_entity.dart';
-import 'package:tete2021/features/login/domain/entities/outlet_entity.dart';
+import '../../../../core/api/myDio.dart';
+import '../../../../core/entities/product_entity.dart';
+import '../../../../features/home/domain/entities/today_data_entity.dart';
+import '../../../../features/login/domain/entities/outlet_entity.dart';
 
 abstract class DashBoardRemoteDataSource {
   Future<List<ProductEntity>> fetchProduct();

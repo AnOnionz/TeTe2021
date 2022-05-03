@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/utils/dialogs.dart';
-import 'package:tete2021/core/utils/toats.dart';
-import 'package:tete2021/features/home/data/datasources/dashboard_local_datasouce.dart';
-import 'package:tete2021/features/home/domain/entities/features.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/utils/dialogs.dart';
+import '../../../../core/utils/toats.dart';
+import '../../../../features/home/data/datasources/dashboard_local_datasouce.dart';
+import '../../../../features/home/domain/entities/features.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 
 class FeatureButton extends StatelessWidget {
   final Feature feature;

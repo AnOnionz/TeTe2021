@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:hive/hive.dart';
-import 'package:tete2021/features/sales/data/datasources/sale_local_data_source.dart';
-import 'package:tete2021/features/sampling_inventory/data/datasources/sampling_inventory_local_data_source.dart';
-import 'package:tete2021/features/sampling_use/data/datasources/sampling_local_data_source.dart';
+import '../../../../features/sales/data/datasources/sale_local_data_source.dart';
+import '../../../../features/sampling_inventory/data/datasources/sampling_inventory_local_data_source.dart';
+import '../../../../features/sampling_use/data/datasources/sampling_local_data_source.dart';
 import '../../../../features/inventory/data/datasources/inventory_local_data_source.dart';
 import '../../../../features/sync_data/domain/entities/sync_entity.dart';
 

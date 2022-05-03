@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/platform/package_info.dart';
-import 'package:tete2021/features/login/domain/entities/login_entity.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/platform/package_info.dart';
+import '../../../../features/login/domain/entities/login_entity.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 
 class TopUi extends StatelessWidget {
   const TopUi({Key? key}) : super(key: key);

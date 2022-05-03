@@ -1,9 +1,9 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/features/home/presentation/widgets/feature_grid.dart';
-import 'package:tete2021/features/home/presentation/widgets/top_ui.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../features/home/presentation/widgets/feature_grid.dart';
+import '../../../../features/home/presentation/widgets/top_ui.dart';
 
 
 class HomePage extends StatelessWidget {

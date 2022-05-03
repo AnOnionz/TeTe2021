@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:tete2021/core/common/keys.dart';
-import 'package:tete2021/core/entities/data_local_entity.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
+import '../../../../core/common/keys.dart';
+import '../../../../core/entities/data_local_entity.dart';
+import '../../../../core/entities/product_entity.dart';
 part 'today_data_entity.g.dart';
 
 @HiveType(typeId: dataTodayId)

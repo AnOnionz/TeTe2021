@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/common/widgets/custom_loading.dart';
-import 'package:tete2021/core/platform/package_info.dart';
-import 'package:tete2021/features/notifications/presentation/blocs/notify_cubit.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/common/widgets/custom_loading.dart';
+import '../../../../core/platform/package_info.dart';
+import '../../../../features/notifications/presentation/blocs/notify_cubit.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);

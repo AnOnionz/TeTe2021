@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tete2021/core/common/constants.dart';
-import 'package:tete2021/core/common/textfield.dart';
+import '../../../../core/common/constants.dart';
+import '../../../../core/common/textfield.dart';
 
 class FormItem extends StatelessWidget {
   final String? label;

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/features/home/domain/entities/features.dart';
-import 'package:tete2021/features/sampling_inventory/domain/repositories/sampling_inventory_repository.dart';
+import '../../../../features/home/domain/entities/features.dart';
+import '../../../../features/sampling_inventory/domain/repositories/sampling_inventory_repository.dart';
 import '../../../../core/entities/data_local_entity.dart';
 import '../../../../features/sampling_use/domain/repositories/sampling_use_repository.dart';
 import '../../../../core/error/failure.dart';

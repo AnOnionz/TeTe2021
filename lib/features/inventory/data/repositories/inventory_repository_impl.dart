@@ -105,7 +105,9 @@ class InventoryRepositoryImpl implements InventoryRepository {
             await remote.saveInventory(type: "BEGIN", inventory: inv);
             inv.isSync = true;
             await inv.save();
-          }catch(_){}
+          }catch(_){
+            rethrow;
+          }
         }
         return const Right(true);
       }

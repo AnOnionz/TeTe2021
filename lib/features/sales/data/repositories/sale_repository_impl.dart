@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:tete2021/features/sales/data/datasources/sale_local_data_source.dart';
-import 'package:tete2021/features/sales/data/datasources/sale_use_remote_datasource.dart';
-import 'package:tete2021/features/sales/domain/repositories/sale_repository.dart';
+import '../../../../features/sales/data/datasources/sale_local_data_source.dart';
+import '../../../../features/sales/data/datasources/sale_use_remote_datasource.dart';
+import '../../../../features/sales/domain/repositories/sale_repository.dart';
 import '../../../../core/entities/data_local_entity.dart';
 import '../../../../core/platform/network_info.dart';
 import '../../../../core/error/Exception.dart';
@@ -64,7 +64,9 @@ class SaleRepositoryImpl implements SaleRepository {
            await remote.saveSale(sale: sale);
            sale.isSync = true;
            await sale.save();
-         }catch(_){}
+         }catch(_){
+           rethrow;
+         }
         }
         return const Right(true);
       }

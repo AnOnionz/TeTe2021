@@ -1,13 +1,13 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:tete2021/core/common/keys.dart';
-import 'package:tete2021/core/entities/product_entity.dart';
-import 'package:tete2021/core/entities/data_local_entity.dart';
-import 'package:tete2021/core/platform/date_time.dart';
-import 'package:tete2021/features/home/domain/entities/today_data_entity.dart';
-import 'package:tete2021/features/login/domain/entities/login_entity.dart';
-import 'package:tete2021/features/login/domain/entities/outlet_entity.dart';
-import 'package:tete2021/features/login/presentation/blocs/authentication_bloc.dart';
+import '../../../../core/common/keys.dart';
+import '../../../../core/entities/product_entity.dart';
+import '../../../../core/entities/data_local_entity.dart';
+import '../../../../core/platform/date_time.dart';
+import '../../../../features/home/domain/entities/today_data_entity.dart';
+import '../../../../features/login/domain/entities/login_entity.dart';
+import '../../../../features/login/domain/entities/outlet_entity.dart';
+import '../../../../features/login/presentation/blocs/authentication_bloc.dart';
 
 Future<void> init() async {
   var dir = await path_provider.getApplicationDocumentsDirectory();

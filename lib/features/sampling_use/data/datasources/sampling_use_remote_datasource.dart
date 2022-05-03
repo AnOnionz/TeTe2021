@@ -1,4 +1,4 @@
-import 'package:tete2021/core/entities/data_local_entity.dart';
+import '../../../../core/entities/data_local_entity.dart';
 
 import '../../../../core/api/myDio.dart';
 
